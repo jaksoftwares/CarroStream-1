@@ -1,0 +1,96 @@
+<!-- User Dashboard Template -->
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>CarroStream Dashboard</h2>
+        </div>
+        <ul class="nav-list">
+            <li><a href="{% url 'user-dashboard' %}">Dashboard Overview</a></li>
+            <li><a href="{% url 'book-service' %}">Book a Service</a></li>
+            <li><a href="{% url 'my-appointments' %}">My Appointments</a></li>
+            <li><a href="{% url 'my-vehicles' %}">My Vehicles</a></li>
+            <li><a href="{% url 'account-settings' %}">Account Settings</a></li>
+            <li><a href="{% url 'contact-support' %}">Help & Support</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Dashboard Overview Section -->
+        <section class="dashboard-overview">
+            <h1>Welcome, {{ user.first_name }}!</h1>
+            <p>Your Dashboard Overview</p>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>Total Appointments</h3>
+                    <p>{{ total_appointments }}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Upcoming Appointments</h3>
+                    <p>{{ upcoming_appointments }}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Recent Payments</h3>
+                    <p>{{ recent_payments }}</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="{% url 'book_service' %}" class="btn-primary">Book a New Service</a>
+                <a href="{% url 'my_vehicles' %}" class="btn-primary">View My Vehicles</a>
+            </div>
+        </section>
+
+        <!-- My Appointments Section -->
+        <section class="appointments">
+            <h2>Upcoming Appointments</h2>
+            <div class="appointment-list">
+                {% for appointment in appointments %}
+                    <div class="appointment-item">
+                        <h4>{{ appointment.service_type }}</h4>
+                        <p>{{ appointment.date }} | {{ appointment.time }}</p>
+                        <a href="{% url 'reschedule_appointment' appointment.id %}" class="btn-link">Reschedule</a>
+                        <a href="{% url 'cancel_appointment' appointment.id %}" class="btn-danger">Cancel</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- My Vehicles Section -->
+        <section class="my-vehicles">
+            <h2>My Vehicles</h2>
+            <div class="vehicle-list">
+                {% for vehicle in vehicles %}
+                    <div class="vehicle-item">
+                        <h4>{{ vehicle.make }} {{ vehicle.model }}</h4>
+                        <p>{{ vehicle.plate_number }}</p>
+                        <a href="{% url 'edit_vehicle' vehicle.id %}" class="btn-link">Edit</a>
+                        <a href="{% url 'remove_vehicle' vehicle.id %}" class="btn-danger">Remove</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Account Settings Section -->
+        <section class="account-settings">
+            <h2>Account Settings</h2>
+            <a href="{% url 'edit_profile' %}" class="btn-primary">Edit Profile</a>
+            <a href="{% url 'payment_methods' %}" class="btn-primary">Manage Payment Methods</a>
+            <a href="{% url 'subscription_plan' %}" class="btn-primary">Manage Subscription</a>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="dashboard-footer">
+            <p>© 2024 CarroStream | All Rights Reserved</p>
+        </footer>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body %}
+{% include 'partials/page-banner.html' %}
+{% comment %} services {% endcomment %}
+<section class="services-overview">
+    <div class="services-container">
+      <h2>Our Services</h2>
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-item" onclick="showServiceDetails('carWash')">
+          <img src="{% static 'services/images/car-wash.jpg' %}" alt="Car Wash">
+          <h3>Car Wash</h3>
+          <p>
+            From basic washes to full detailing, we provide premium car cleaning services that will leave your vehicle looking like new.
+          </p>
+        </div>
+        <!-- Service 2 -->
+        <div class="service-item" onclick="showServiceDetails('maintenanceRepairs')">
+          <img src="{% static 'services/images/maintenance-repairs.jpg' %}" alt="Maintenance & Repairs">
+          <h3>Maintenance & Repairs</h3>
+          <p>
+            Oil changes, tire checks, brake repairs, and more. We ensure your car runs smoothly and safely with professional repairs.
+          </p>
+        </div>
+        <!-- Service 3 -->
+        <div class="service-item" onclick="showServiceDetails('diagnosticsElectrical')">
+          <img src="{% static 'services/images/diagnostics-electrical.png' %}" alt="Diagnostics & Electrical">
+          <h3>Diagnostics & Electrical</h3>
+          <p>
+            Our expert technicians use advanced tools to diagnose and fix any issues with your car’s electronics, ensuring that your car is fully optimized.
+          </p>
+        </div>
+        <!-- Service 4 -->
+        <div class="service-item" onclick="showServiceDetails('accessoriesInstallation')">
+          <img src="{% static 'services/images/accessories-installation.jpg' %}" alt="Accessories Installation">
+          <h3>Accessories Installation</h3>
+          <p>
+            Need a new sound system, security alarm, or custom parts? We install high-quality accessories for your car.
+          </p>
+        </div>
+      </div>
+      <a href="{% url 'services' %}" class="btn btn-primary">Explore All Services</a>
+    </div>
+  </section>
+  
+  <!-- Modal for Details -->
+  <div id="serviceDetailsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+   <!-- Customer Testimonials Section -->
+<section class="testimonials-section">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonials-container">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+            <p class="testimonial-text">
+                “CarroStream has been a lifesaver for me. The booking system is so easy to use, and I love that I can pay through MPESA. I’ll definitely be coming back!”
+            </p>
+            <p class="testimonial-author">– Jane M.</p>
+            <p class="testimonial-rating">⭐ 4.8/5</p>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+            <p class="testimonial-text">
+                “I’ve used several auto repair shops, but none are as reliable as CarroStream. They communicate clearly about pricing, and their service is top-notch.”
+            </p>
+            <p class="testimonial-author">– David O.</p>
+            <p class="testimonial-rating">⭐ 4.8/5</p>
+        </div>
+    </div>
+  </section>
+{% endblock %}

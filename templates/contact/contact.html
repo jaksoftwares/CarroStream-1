@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body %}
+{% include 'partials/page-banner.html' %}
+<!-- Contact Us Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>We're here to help. Get in touch with us for any questions or support.</p>
+    </div>
+</section>
+
+<!-- Contact Form Section -->
+<section class="contact-form">
+    <div class="container">
+        <h2>Send Us a Message</h2>
+        <form action="{% url 'contact' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</section>
+
+<!-- Location Section -->
+<section class="location">
+    <div class="container">
+        <h2>Our Location</h2>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Details Section -->
+<section class="contact-details">
+    <div class="container">
+        <h2>Contact Information</h2>
+        <ul class="contact-list">
+            <li>
+                <strong>Phone:</strong> +254 7XXX XXX XXX
+            </li>
+            <li>
+                <strong>Email:</strong> <a href="mailto:support@carrostream.com">support@carrostream.com</a>
+            </li>
+            <li>
+                <strong>Working Hours:</strong> Mon - Fri, 9:00 AM - 6:00 PM
+            </li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

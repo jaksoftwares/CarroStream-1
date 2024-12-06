@@ -1,0 +1,97 @@
+/* FAQ Page Styles */
+
+/* FAQ Header */
+.faq-header {
+    background-color: #f4f4f4;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.faq-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.faq-header p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Search Bar */
+.faq-search {
+    padding: 20px 0;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.faq-search input {
+    width: 60%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* FAQ List */
+.faq-list {
+    padding: 50px 0;
+    background-color: #ffffff;
+}
+
+.faq-list .accordion .card {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.faq-list .accordion .card-header {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+.faq-list .accordion .card-header h5 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.faq-list .accordion .btn-link {
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+}
+
+.faq-list .accordion .btn-link:hover {
+    background-color: #f0f0f0;
+}
+
+/* Accordion Body */
+.faq-list .accordion .card-body {
+    font-size: 16px;
+    color: #555;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .faq-search input {
+        width: 90%;
+    }
+
+    .faq-header h1 {
+        font-size: 28px;
+    }
+
+    .faq-list .accordion .card-header h5 {
+        font-size: 16px;
+    }
+
+    .faq-list .accordion .btn-link {
+        font-size: 16px;
+    }
+}
