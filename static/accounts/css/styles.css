@@ -1,0 +1,103 @@
+/* Login Page Styles */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-logo h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.login-logo p {
+    font-size: 16px;
+    color: #777;
+}
+
+.login-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-form .form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+.login-form .form-control:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.login-form .btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-form .btn:hover {
+    background-color: #2980b9;
+}
+
+.login-options p {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.login-options a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.login-options a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .login-form-container {
+        padding: 20px;
+    }
+    
+    .login-logo h1 {
+        font-size: 28px;
+    }
+
+    .login-form .form-control {
+        font-size: 14px;
+    }
+
+    .login-form .btn {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,71 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body %}
+{% include 'partials/page-banner.html' %}
+<!-- FAQ Page Header -->
+<section class="faq-header">
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        <p>Find answers to the most common questions about CarroStream services.</p>
+    </div>
+</section>
+
+<!-- Search Bar -->
+<section class="faq-search">
+    <div class="container">
+        <input type="text" id="search-faq" class="form-control" placeholder="Search for a question..." onkeyup="searchFAQ()">
+    </div>
+</section>
+
+<!-- FAQ List -->
+<section class="faq-list">
+    <div class="container">
+        <div class="accordion" id="faqAccordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What services does CarroStream offer?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        CarroStream offers a variety of services including car wash, maintenance and repairs, diagnostics and electrical services, and accessories installation.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How do I book a service with CarroStream?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        You can book a service by visiting our booking page and selecting the service you want. You will receive an instant confirmation once the booking is completed.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What is the cost of a car wash?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The cost of a car wash depends on the type of wash you choose. A basic wash starts at KSh 500, while full detailing can go up to KSh 4,000.
+                    </div>
+                </div>
+            </div>
+            <!-- Add more FAQ items here -->
+        </div>
+    </div>
+</section>
+{% endblock %}

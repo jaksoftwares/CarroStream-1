@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+{% load static %}
+<title>{% block title %} About | CarroStream{% endblock %}</title>
+
+{% block body %}
+{% include 'partials/page-banner.html' %}
+<section class="about-preview">
+    <div class="about-container">
+        <div class="about-image">
+            <img src="{% static 'about/images/about-garage.jpg' %}" alt="CarroStream Garage Overview">
+          </div>
+      <div class="about-text">
+        <h2>About CarroStream Garage</h2>
+        <p>
+          CarroStream Garage is committed to providing exceptional auto care services with the highest standards of reliability, affordability, and transparency. We cater to car owners who value their vehicles and seek trustworthy, long-term service solutions. With a customer-first approach, we strive to make car maintenance hassle-free with easy online booking, clear pricing, and quality services you can rely on.
+        </p>
+      </div>
+      
+    </div>
+    
+  </section>
+  <!-- Key Features/Benefits Section -->
+<section class="features-section">
+  <h2>Why Choose CarroStream?</h2>
+  <div class="features-container">
+      <!-- Feature 1 -->
+      <div class="feature-card">
+          <h3>Real-Time Bookings</h3>
+          <p>Book your service at any time, day or night. Instant confirmation and easy rescheduling.</p>
+      </div>
+      <!-- Feature 2 -->
+      <div class="feature-card">
+          <h3>Transparent Pricing</h3>
+          <p>No hidden costs. What you see is what you get, with detailed pricing for every service.</p>
+      </div>
+      <!-- Feature 3 -->
+      <div class="feature-card">
+          <h3>Expert Technicians</h3>
+          <p>Our technicians are certified professionals, ensuring quality service for every car that enters our garage.</p>
+      </div>
+      <!-- Feature 4 -->
+      <div class="feature-card">
+          <h3>Customer Loyalty Program</h3>
+          <p>Earn points with every service and enjoy discounts or free services as you continue to book with CarroStream.</p>
+      </div>
+  </div>
+  <div class="features-cta">
+      <a href="{% url 'booking' %}" class="btn-primary">Start Booking Today</a>
+  </div>
+</section>
+{% endblock %}
