@@ -1,6 +1,12 @@
 {% extends "base/base.html" %}
 {% load static %}
+<html>
+<head>
 <title>{% block title %}CarroStream | Home{% endblock %}</title>
+{% block css %}
+<link rel="stylesheet" href="{% static 'services/css/styles.css' %}">
+{% endblock %}
+</head>
 
 {% block body %}
 {% comment %} hero {% endcomment %}

@@ -1,7 +1,84 @@
 {% extends "base/base.html" %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Service - CarroStream</title>
+  {% block css%}
+  <link rel="stylesheet" href="{% static 'booking/css/styles.css'%}">
+  {% endblock %}
+</head>
 
 {% block body %}
-<h1>Welcome to Booking for Services</h1>
-<p>Fill the form below to book for a service</p>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Book Your Car Service Easily</h1>
+      <p>Your trusted garage services, just a click away.</p>
+      <a href="#booking-form" class="cta-button">Book Now</a>
+    </div>
+  </section>
+
+  <!-- Booking Form Section -->
+  <section id="booking-form" class="booking-form">
+    <h2>Make a Booking</h2>
+    <form id="service-booking" method="POST" action="/submit-booking">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone">
+
+      <label for="service">Service Type</label>
+      <select id="service" name="service">
+        <option value="oil-change">Oil Change</option>
+        <option value="brake-check">Brake Check</option>
+        <option value="inspection">Full Inspection</option>
+      </select>
+
+      <label for="date">Date of Service</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">Time Slot</label>
+      <select id="time" name="time">
+        <option value="morning">Morning (8 AM - 12 PM)</option>
+        <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+      </select>
+
+      <label for="car-model">Car Model</label>
+      <input type="text" id="car-model" name="car-model">
+
+      <label for="location">Preferred Garage Location</label>
+      <select id="location" name="location">
+        <option value="location1">Location 1</option>
+        <option value="location2">Location 2</option>
+      </select>
+
+      <label for="instructions">Additional Instructions</label>
+      <textarea id="instructions" name="instructions"></textarea>
+
+      <div class="account">
+        <p>Already have an account? <a href="#">Log in</a> to complete the booking.</p>
+      </div>
+
+      <button type="submit" class="cta-button">Confirm Booking</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <ul>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms & Conditions</a></li>
+    </ul>
+  </footer>
+
+
+
 {% endblock %}
+</body>
+</html>

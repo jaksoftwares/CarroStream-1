@@ -32,3 +32,360 @@
         font-size: 1.8rem;
     }
 }
+/* General Section Styling */
+.about-page .section {
+    padding: 60px 20px;
+}
+
+.about-page .section.bg-light {
+    background-color: #f9f9f9;
+}
+
+.about-page .section.bg-primary {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+}
+.about-page .section h1, 
+.about-page .section h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+    display: inline-block;
+}
+
+.about-page .section h1::after, 
+.about-page .section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #007bff;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+
+.about-page h1, 
+.about-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.about-page p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.8;
+}
+
+/* Buttons */
+.about-page .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.about-page .btn:hover {
+    background-color: #0056b3;
+}
+
+.about-page .btn-light {
+    background-color: #fff;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+
+.about-page .btn-light:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Introduction Section */
+#about-intro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#about-intro .intro-content {
+    flex: 1 1 50%;
+    text-align: left;
+}
+
+#about-intro .intro-content h1 {
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#about-intro .intro-image {
+    flex: 1 1 50%;
+    text-align: center;
+}
+
+#about-intro .intro-image img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* mission Section Header Styling */
+/* Section Header Styling */
+
+
+#mission-vision-values .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#mission-vision-values .section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+    display: inline-block;
+}
+
+#mission-vision-values .section-header h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #007bff;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Cards Grid Styling */
+#mission-vision-values .mvv-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* Ensures proper wrapping for smaller screens */
+    margin-top: 20px;
+}
+
+#mission-vision-values .mvv-card {
+    flex: 1 1 calc(33.333% - 20px); /* Adjusts for 3 cards per row */
+    max-width: 300px;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#mission-vision-values .mvv-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#mission-vision-values .mvv-card i {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+#mission-vision-values .mvv-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#mission-vision-values .mvv-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+
+
+/* Our Story Section */
+#our-story .story-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    padding-left: 20px;
+}
+
+#our-story .story-timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #007bff;
+    border-radius: 2px;
+}
+
+#our-story .story-item {
+    position: relative;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+}
+
+#our-story .story-item::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: -14px;
+    width: 15px;
+    height: 15px;
+    background: #007bff;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+
+/* Our Team Section */
+#our-team{
+    text-align: center;
+}
+.team-container{
+    display: flex; /* Enables Flexbox */
+    gap: 20px; /* Adds spacing between cards */
+    justify-content: center; /* Centers cards horizontally */
+    align-items: flex-start; /* Aligns cards at the top */
+    flex-wrap: wrap; /* Ensures cards wrap on smaller screens */
+    padding: 20px;
+
+}
+#our-team .team-grid {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+#our-team .team-member {
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#our-team .team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#our-team .team-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #007bff;
+}
+
+#our-team .team-member h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+#our-team .team-member p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+
+/* Impact Section */
+#our-impact .impact-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+#our-impact .stat {
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1 1 150px;
+    max-width: 200px;
+}
+
+#our-impact .stat h3 {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+#our-impact .stat p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* CTA Banner */
+#cta-banner {
+    text-align: center;
+    background: #007bff;
+    padding: 50px 20px;
+    color: #fff;
+}
+
+#cta-banner h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#cta-banner p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+#cta-banner .btn {
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #007bff;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#cta-banner .btn:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    #about-intro {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #mission-vision-values .mvv-grid,
+    #our-impact .impact-stats {
+        flex-direction: column;
+    }
+
+    #our-team .team-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}

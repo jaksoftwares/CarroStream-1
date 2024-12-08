@@ -48,4 +48,136 @@
       <a href="{% url 'booking' %}" class="btn-primary">Start Booking Today</a>
   </div>
 </section>
+<div class="about-page">
+
+  <!-- Introduction Section -->
+  <section id="about-intro" class="section">
+      <div class="container">
+          <div class="intro-content">
+              <h1>Welcome to CarroStream</h1>
+              <p>At CarroStream, we are redefining car care and repair services through technology and innovation. Experience seamless booking, transparent pricing, and quality services every time.</p>
+              <a href="{% url 'services' %}" class="btn btn-primary">Explore Our Services</a>
+          </div>
+          <div class="intro-image">
+              <img src="{% static 'about/images/about-garage.jpg' %}" alt="CarroStream Introduction">
+          </div>
+      </div>
+  </section>
+
+  <!-- Mission, Vision, Values -->
+<section id="mission-vision-values" class="section bg-light">
+  <div class="section-header">
+    <h2>Our Mission, Vision & Values</h2>
+</div>
+  <div class="container">
+      <div class="mvv-grid">
+          <div class="mvv-card">
+              <i class="icon icon-mission"></i>
+              <h3>Our Mission</h3>
+              <p>To deliver exceptional car care services through innovative technology and trusted partnerships.</p>
+          </div>
+          <div class="mvv-card">
+              <i class="icon icon-vision"></i>
+              <h3>Our Vision</h3>
+              <p>To be the most trusted and reliable car care platform in Kenya and beyond.</p>
+          </div>
+          <div class="mvv-card">
+              <i class="icon icon-values"></i>
+              <h3>Our Values</h3>
+              <p>Innovation, Integrity, Quality, and Customer Satisfaction are at the heart of everything we do.</p>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+  <!-- Our Story -->
+  <section id="our-story" class="section">
+    <div class="section-header">
+    <h2>Our Story</h2>
+    </div>
+      <div class="container">
+          <div class="story-timeline">
+              <div class="story-item">
+                  <h3>2024</h3>
+                  <p>CarroStream was founded with a vision to revolutionize car services in Kenya.</p>
+              </div>
+              <div class="story-item">
+                  <h3>2025</h3>
+                  <p>Launched the platform, connecting thousands of users to quality services.</p>
+              </div>
+              <div class="story-item">
+                  <h3>2026</h3>
+                  <p>Expanded services to cover more cities and introduced advanced features.</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Our Team -->
+  <section id="our-team" class="section bg-light">
+    <div class="section-header">
+    <h2>Meet Our Team</h2>
+    </div>
+      <div class="team-container">
+          <div class="team-grid">
+              <div class="team-member">
+                  <img src="{% static '/dashboard/images/user-profile.jpg' %}" alt="Joseph Kirika">
+                  <h3>Joseph Kirika</h3>
+                  <p>CEO & Founder</p>
+              </div>
+              <div class="team-member">
+                  <img src="{% static '/dashboard/images/user-profile.jpg' %}" alt="Daniel Karume">
+                  <h3>Daniel Karume</h3>
+                  <p>Lead Logistics</p>
+              </div>
+              <div class="team-member">
+                  <img src="{% static '/dashboard/images/user-profile.jpg' %}" alt="Peaches Njenga">
+                  <h3>Peaches Njenga</h3>
+                  <p>Lead Marketing</p>
+              </div>
+              <div class="team-member">
+                  <img src="{% static '/dashboard/images/user-profile.jpg' %}" alt="Truphena Wairimu">
+                  <h3>Truphena Wairimu</h3>
+                  <p>Human Resource</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Our Impact -->
+  <section id="our-impact" class="section">
+    <div class="section-header" text-align = "center">
+    <h2>Our Impact</h2>
+    </div>
+      <div class="container">
+          <div class="impact-stats">
+              <div class="stat">
+                  <h3>10K+</h3>
+                  <p>Services Completed</p>
+              </div>
+              <div class="stat">
+                  <h3>4.8/5</h3>
+                  <p>Customer Rating</p>
+              </div>
+              <div class="stat">
+                  <h3>15+</h3>
+                  <p>Cities Covered</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section id="cta-banner" class="section bg-primary">
+    <div class="section-header">
+    <h2>Join the CarroStream Community</h2>
+    </div>
+      <div class="container">
+          <p>Let us take care of your car so you can focus on what matters most.</p>
+          <a href="{% url 'contact' %}" class="btn btn-light">Get In Touch</a>
+      </div>
+  </section>
+</div>
+
 {% endblock %}

@@ -1,26 +1,36 @@
 # views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Appointment, Vehicle, Payment
+from services.models import Service
+from .models import Appointment, Vehicle
 from django.contrib import messages
 from .forms import BookServiceForm, AccountSettingsForm, ContactSupportForm
 
-# Dashboard Overview
-@login_required
-def user_dashboard(request):
-    user = request.user
-    
-    # Get appointments
-    total_appointments = Appointment.objects.filter(user=user).count()
-    upcoming_appointments = Appointment.objects.filter(user=user, status="upcoming").count()
-    recent_payments = Payment.objects.filter(user=user).count()
 
-    # Render dashboard with relevant data
-    return render(request, 'dashboard/user_dashboard.html', {
-        'total_appointments': total_appointments,
-        'upcoming_appointments': upcoming_appointments,
-        'recent_payments': recent_payments
-    })
+def user_dashboard(request):
+    return render(request, 'dashboard/user_dashboard.html')
+
+def admin_dashboard(request):
+    return render(request, 'dashboard/admin_dashboard.html')
+def siteadmin_dashboard(request):
+    services = Service.objects.all()  # Fetch all services
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'services': services})
+# Dashboard Overview
+# @login_required
+# def user_dashboard(request):
+#     user = request.user
+    
+#     # Get appointments
+#     total_appointments = Appointment.objects.filter(user=user).count()
+#     upcoming_appointments = Appointment.objects.filter(user=user, status="upcoming").count()
+#     recent_payments = Payment.objects.filter(user=user).count()
+
+#     # Render dashboard with relevant data
+#     return render(request, 'dashboard/user_dashboard.html', {
+#         'total_appointments': total_appointments,
+#         'upcoming_appointments': upcoming_appointments,
+#         'recent_payments': recent_payments
+#     })
 
 # Book a Service
 @login_required

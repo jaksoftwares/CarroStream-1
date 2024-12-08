@@ -1,0 +1,80 @@
+  
+  .hero {
+    background: url('{% static "about/images/about-garage.jpg" %}') no-repeat center center;
+    background-size: cover;
+    padding: 100px 0;
+    text-align: center;
+    color: white;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero .cta-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
+  .booking-form {
+    padding: 2rem;
+    background-color: #f9f9f9;
+  }
+  
+  .booking-form h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .booking-form form {
+    display: grid;
+    gap: 15px;
+  }
+  
+  .booking-form label {
+    font-size: 1.1rem;
+  }
+  
+  .booking-form input, .booking-form select, .booking-form textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .booking-form .cta-button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  footer ul {
+    list-style-type: none;
+  }
+  
+  footer ul li {
+    display: inline;
+    margin: 0 15px;
+  }
+  
+  footer ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'feedback',
     'blog',
     'pricing',
+    'newsletters',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +138,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+AUTH_USER_MODEL = 'accounts.User'
 
 # Authentication settings
 LOGIN_REDIRECT_URL = 'home'  # Change this to your desired page after login

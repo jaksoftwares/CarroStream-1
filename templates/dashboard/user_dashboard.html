@@ -1,96 +1,119 @@
-<!-- User Dashboard Template -->
-{% extends 'base/base.html' %}
-{% load static %}
+{% load static%}
 
-{% block body %}
-<div class="dashboard-container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>CarroStream Dashboard</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <!-- Link to your CSS for styling -->
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <!-- Add FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'dashboard/css/styles.css' %}">
+</head>
+<body>
+
+    <!-- Main Container -->
+    <div class="dashboard-container">
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>CarroStream</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="#bookings"><i class="fas fa-calendar-alt"></i> Bookings</a></li>
+                    <li><a href="#services"><i class="fas fa-cogs"></i> Services</a></li>
+                    <li><a href="#settings"><i class="fas fa-cogs"></i> Settings</a></li>
+                </ul>
+            </nav>
         </div>
-        <ul class="nav-list">
-            <li><a href="{% url 'user-dashboard' %}">Dashboard Overview</a></li>
-            <li><a href="{% url 'book-service' %}">Book a Service</a></li>
-            <li><a href="{% url 'my-appointments' %}">My Appointments</a></li>
-            <li><a href="{% url 'my-vehicles' %}">My Vehicles</a></li>
-            <li><a href="{% url 'account-settings' %}">Account Settings</a></li>
-            <li><a href="{% url 'contact-support' %}">Help & Support</a></li>
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-        </ul>
+
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Welcome, User!</h1>
+                </div>
+                <div class="header-right">
+                    <div class="profile-container">
+                        <img src="{% static 'dashboard/images/user-profile.jpg' %}" alt="Profile Picture" class="profile-picture">
+                        <span class="username">Joseph Kirika</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Body -->
+            <div class="dashboard-body">
+                <section id="profile" class="dashboard-section">
+                    <h2>Your Profile</h2>
+                    <div class="profile-info">
+                        <img src="{% static 'dashboard/images/user-profile.jpg' %}" alt="Profile Picture" class="profile-image">
+                        <button class="upload-btn">Upload New Profile Picture</button>
+                        <p><strong>Email:</strong> user@example.com</p>
+                        <p><strong>Phone:</strong> 0700123456</p>
+                        <p><strong>Address:</strong> Nairobi, Kenya</p>
+                        <button class="btn-primary">Edit Profile</button>
+                    </div>
+                </section>
+
+                <section id="bookings" class="dashboard-section">
+                    <h2>Your Bookings</h2>
+                    <div class="bookings-overview">
+                        <div class="booking-card">
+                            <h3>Car Wash</h3>
+                            <p>Status: <span class="status-pending">Pending</span></p>
+                            <button class="btn-secondary">Cancel Booking</button>
+                        </div>
+                        <div class="booking-card">
+                            <h3>Oil Change</h3>
+                            <p>Status: <span class="status-completed">Completed</span></p>
+                            <button class="btn-secondary">View Details</button>
+                        </div>
+                        <button class="btn-primary">Book New Service</button>
+                    </div>
+                </section>
+
+                <section id="services" class="dashboard-section">
+                    <h2>Available Services</h2>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <h3>Car Wash</h3>
+                            <p>From basic washes to full detailing.</p>
+                            <button class="btn-primary">Book Now</button>
+                        </div>
+                        <div class="service-item">
+                            <h3>Maintenance & Repairs</h3>
+                            <p>Oil changes, tire checks, and more.</p>
+                            <button class="btn-primary">Book Now</button>
+                        </div>
+                        <div class="service-item">
+                            <h3>Diagnostics & Electrical</h3>
+                            <p>Advanced diagnostic and electrical repairs.</p>
+                            <button class="btn-primary">Book Now</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="settings" class="dashboard-section">
+                    <h2>Settings</h2>
+                    <div class="settings-options">
+                        <button class="btn-primary">Change Password</button>
+                        <button class="btn-secondary">Logout</button>
+                    </div>
+                </section>
+
+            </div>
+        </div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <!-- Dashboard Overview Section -->
-        <section class="dashboard-overview">
-            <h1>Welcome, {{ user.first_name }}!</h1>
-            <p>Your Dashboard Overview</p>
+    <!-- JavaScript for interactive elements -->
+    <script src="{% static 'dashboard/js/scripts.js' %}"></script>
 
-            <div class="stats">
-                <div class="stat-box">
-                    <h3>Total Appointments</h3>
-                    <p>{{ total_appointments }}</p>
-                </div>
-                <div class="stat-box">
-                    <h3>Upcoming Appointments</h3>
-                    <p>{{ upcoming_appointments }}</p>
-                </div>
-                <div class="stat-box">
-                    <h3>Recent Payments</h3>
-                    <p>{{ recent_payments }}</p>
-                </div>
-            </div>
-
-            <div class="action-buttons">
-                <a href="{% url 'book_service' %}" class="btn-primary">Book a New Service</a>
-                <a href="{% url 'my_vehicles' %}" class="btn-primary">View My Vehicles</a>
-            </div>
-        </section>
-
-        <!-- My Appointments Section -->
-        <section class="appointments">
-            <h2>Upcoming Appointments</h2>
-            <div class="appointment-list">
-                {% for appointment in appointments %}
-                    <div class="appointment-item">
-                        <h4>{{ appointment.service_type }}</h4>
-                        <p>{{ appointment.date }} | {{ appointment.time }}</p>
-                        <a href="{% url 'reschedule_appointment' appointment.id %}" class="btn-link">Reschedule</a>
-                        <a href="{% url 'cancel_appointment' appointment.id %}" class="btn-danger">Cancel</a>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
-
-        <!-- My Vehicles Section -->
-        <section class="my-vehicles">
-            <h2>My Vehicles</h2>
-            <div class="vehicle-list">
-                {% for vehicle in vehicles %}
-                    <div class="vehicle-item">
-                        <h4>{{ vehicle.make }} {{ vehicle.model }}</h4>
-                        <p>{{ vehicle.plate_number }}</p>
-                        <a href="{% url 'edit_vehicle' vehicle.id %}" class="btn-link">Edit</a>
-                        <a href="{% url 'remove_vehicle' vehicle.id %}" class="btn-danger">Remove</a>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
-
-        <!-- Account Settings Section -->
-        <section class="account-settings">
-            <h2>Account Settings</h2>
-            <a href="{% url 'edit_profile' %}" class="btn-primary">Edit Profile</a>
-            <a href="{% url 'payment_methods' %}" class="btn-primary">Manage Payment Methods</a>
-            <a href="{% url 'subscription_plan' %}" class="btn-primary">Manage Subscription</a>
-        </section>
-
-        <!-- Footer Section -->
-        <footer class="dashboard-footer">
-            <p>© 2024 CarroStream | All Rights Reserved</p>
-        </footer>
-    </div>
-</div>
-
-{% endblock %}
+</body>
+</html>
