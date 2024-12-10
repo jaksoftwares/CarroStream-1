@@ -11,22 +11,24 @@
 {% block body %}
 {% comment %} hero {% endcomment %}
 <section class="hero">
-    <div class="hero-container">
+  <div class="hero-container">
       <div class="hero-text">
-        <h1>Your One-Stop Solution for Quality Auto Care</h1>
-        <p>
-          Streamline your car maintenance with professional, reliable, and convenient services. With CarroStream, you get more than just a garage – you get peace of mind for your vehicle.
-        </p>
-        <div class="hero-buttons">
-          <a href="{% url 'booking' %}" class="btn btn-primary">Book Your Service</a>
-          <a href="{% url 'services' %}" class="btn btn-secondary">Learn More</a>
-        </div>
+          <h1>Your One-Stop Solution for Quality Auto Care</h1>
+          <p>
+              Streamline your car maintenance with professional, reliable, and convenient services. With CarroStream, you get more than just a garage – you get peace of mind for your vehicle.
+          </p>
+          <div class="hero-buttons">
+              <a href="{% if user.is_authenticated %}{% url 'booking' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-primary">
+                  {% if user.is_authenticated %}Book Your Service{% else %}Login to Book{% endif %}
+              </a>
+              <a href="{% url 'services' %}" class="btn btn-secondary">Learn More</a>
+          </div>
       </div>
       <div class="hero-image">
-        <img src="{% static 'home/images/hero-car-maintenance.jpg' %}" alt="Professional Auto Care">
+          <img src="{% static 'home/images/hero-car-maintenance.jpg' %}" alt="Professional Auto Care">
       </div>
-    </div>
-  </section>
+  </div>
+</section>
   {% comment %} about {% endcomment %}
   <section class="about-preview">
     <div class="about-container">
@@ -92,6 +94,39 @@
       <div id="modalContent"></div>
     </div>
   </div>
+
+  <section id="how-it-works" class="how-it-works">
+    <div class="section-header">
+      <h2>How It Works</h2>
+      <p>Experience seamless booking in just a few easy steps. Follow our streamlined process to get started!</p>
+  </div>
+    <div class="container">
+        <div class="steps">
+            <div class="step">
+                <i class="fas fa-user-circle"></i>
+                <h3>Create an Account</h3>
+                <p>Sign up for free and access your personalized dashboard.</p>
+            </div>
+            <div class="step">
+                <i class="fas fa-tools"></i>
+                <h3>Choose a Service</h3>
+                <p>Select from a variety of car services tailored to your needs.</p>
+            </div>
+            <div class="step">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Book & Pay</h3>
+                <p>Pick a time, confirm your booking, and pay securely.</p>
+            </div>
+            <div class="step">
+                <i class="fas fa-check-circle"></i>
+                <h3>Relax!</h3>
+                <p>Enjoy top-notch service while we take care of your car.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
   <!-- Customer Testimonials Section -->
 <section class="testimonials-section">

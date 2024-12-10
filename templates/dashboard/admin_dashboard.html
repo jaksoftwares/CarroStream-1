@@ -212,7 +212,7 @@
     <div class="modal-content">
         <span class="close" onclick="closeNewsletterModal()">&times;</span>
         <h2>Newsletter Management</h2>
-        <form method="POST" action="{% url 'admin' %}">
+        <form method="POST" action="{% url 'dashboard:admin' %}">
             {% csrf_token %}
             <div class="form-group">
                 <label for="subject">Newsletter Subject:</label>
@@ -228,12 +228,12 @@
     </div>
 </div>
 
-<!-- Notifications Modal -->
+<!--Notifications Modal -->
 <div id="notifications-modal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeNotificationsModal()">&times;</span>
         <h2>Send Notifications</h2>
-        <form method="POST" action="{% url 'admin' %}">
+        <form method="POST" action="{% url 'dashboard:admin' %}">
             {% csrf_token %}
             <div class="form-group">
                 <label for="notification-title">Notification Title:</label>

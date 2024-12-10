@@ -5,32 +5,49 @@ from services.models import Service
 from .models import Appointment, Vehicle
 from django.contrib import messages
 from .forms import BookServiceForm, AccountSettingsForm, ContactSupportForm
+from accounts.models import UserProfile
+from accounts.forms import UserProfileForm
+from django.contrib.auth import logout
+from services.models import Service 
 
 
+
+@login_required
 def user_dashboard(request):
-    return render(request, 'dashboard/user_dashboard.html')
+    user = request.user
+    profile = user.profile
+
+    # Fetch services from the Service model
+    services = Service.objects.all()  # Get all available services from the database
+
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirect back to the dashboard after saving
+    else:
+        form = UserProfileForm(instance=profile)
+
+    # Add the services to the context to be passed to the template
+    context = {
+        'user': user,
+        'user_profile': profile,
+        'form': form,  # Pass the form to the template for rendering
+        'services': services,  # Pass the services to the template
+    }
+
+    return render(request, 'dashboard/user_dashboard.html', context)
+
+
+def custom_logout(request):
+    logout(request)
+    return redirect('home') 
 
 def admin_dashboard(request):
     return render(request, 'dashboard/admin_dashboard.html')
 def siteadmin_dashboard(request):
     services = Service.objects.all()  # Fetch all services
     return render(request, 'dashboard/siteadmin_dashboard.html', {'services': services})
-# Dashboard Overview
-# @login_required
-# def user_dashboard(request):
-#     user = request.user
-    
-#     # Get appointments
-#     total_appointments = Appointment.objects.filter(user=user).count()
-#     upcoming_appointments = Appointment.objects.filter(user=user, status="upcoming").count()
-#     recent_payments = Payment.objects.filter(user=user).count()
-
-#     # Render dashboard with relevant data
-#     return render(request, 'dashboard/user_dashboard.html', {
-#         'total_appointments': total_appointments,
-#         'upcoming_appointments': upcoming_appointments,
-#         'recent_payments': recent_payments
-#     })
 
 # Book a Service
 @login_required
@@ -55,6 +72,9 @@ def book_service(request):
 def my_appointments(request):
     appointments = Appointment.objects.filter(user=request.user)
     return render(request, 'my_appointments.html', {'appointments': appointments})
+
+def dummy(request):
+    return render(request, 'dashboard/dummy.html')
 
 # Manage Vehicles
 @login_required
@@ -97,3 +117,6 @@ def logout_view(request):
     from django.contrib.auth import logout
     logout(request)
     return redirect('login')
+
+
+

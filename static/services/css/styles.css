@@ -18,9 +18,11 @@
   
   .services-grid {
     display: flex;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    flex: 1 1 300px; /* Flex-grow: 1, Flex-shrink: 1, and Base width of 300px */
+    min-width: 300px; /* Optional: Minimum width for the card */
     gap: 20px;
     margin-bottom: 30px;
+    padding: 20px;
   }
   
   .service-item {

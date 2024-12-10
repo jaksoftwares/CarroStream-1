@@ -1,4 +1,4 @@
-{% load static%}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +27,14 @@
                     <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
                     <li><a href="#bookings"><i class="fas fa-calendar-alt"></i> Bookings</a></li>
                     <li><a href="#services"><i class="fas fa-cogs"></i> Services</a></li>
+                    <li>
+                        <a href="#notifications">
+                            <i class="fas fa-bell"></i> Notifications 
+                            <span class="badge">3</span>
+                        </a>
+                    </li>
+                    <li><a href="#livechart"><i class="fas fa-chart-line"></i> LiveChart</a></li>
+                    <li><a href="#payment-history"><i class="fas fa-wallet"></i> Payments</a></li>
                     <li><a href="#settings"><i class="fas fa-cogs"></i> Settings</a></li>
                 </ul>
             </nav>
@@ -35,32 +43,58 @@
         <!-- Main Content -->
         <div class="main-content">
 
-            <!-- Header -->
-            <header class="header">
-                <div class="header-left">
-                    <h1>Welcome, User!</h1>
-                </div>
-                <div class="header-right">
-                    <div class="profile-container">
-                        <img src="{% static 'dashboard/images/user-profile.jpg' %}" alt="Profile Picture" class="profile-picture">
-                        <span class="username">Joseph Kirika</span>
-                    </div>
-                </div>
-            </header>
+           <!-- Header -->
+           <header class="header">
+            <div class="header-left">
+                <h1>Welcome, {{ user.full_name }}!</h1>
+            </div>
+            <div class="header-right">
+                <div class="profile-container">
+                    <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'dashboard/images/default_profile.png' %}{% endif %}" alt="Profile Picture" class="profile-image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
 
-            <!-- Dashboard Body -->
-            <div class="dashboard-body">
-                <section id="profile" class="dashboard-section">
-                    <h2>Your Profile</h2>
-                    <div class="profile-info">
-                        <img src="{% static 'dashboard/images/user-profile.jpg' %}" alt="Profile Picture" class="profile-image">
-                        <button class="upload-btn">Upload New Profile Picture</button>
-                        <p><strong>Email:</strong> user@example.com</p>
-                        <p><strong>Phone:</strong> 0700123456</p>
-                        <p><strong>Address:</strong> Nairobi, Kenya</p>
-                        <button class="btn-primary">Edit Profile</button>
-                    </div>
-                </section>
+                    <span class="username">{{ user.username }}</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Dashboard Body -->
+        <div class="dashboard-body">
+            <section id="profile" class="dashboard-section">
+                <h2>Your Profile</h2>
+                <div class="profile-info">
+                    <!-- Display the user's profile picture if available, otherwise fallback to default -->
+                    <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'dashboard/images/default_profile.png' %}{% endif %}" alt="Profile Picture" class="profile-image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
+
+        
+                    <!-- Button to upload or update profile picture -->
+                    {% comment %} <a href="{% url 'dashboard:user_dashboard' %}" class="btn upload-btn">Upload/Update Profile Picture</a> {% endcomment %}
+        
+                    <!-- Display user data -->
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Phone:</strong> 
+                        {% if user.profile.phone_number %}
+                            {{ user.profile.phone_number }}
+                        {% else %}
+                            <span class="placeholder">Not provided</span>
+                        {% endif %}
+                    </p>
+                    <p><strong>Address:</strong> 
+                        {% if user.profile.address %}
+                            {{ user.profile.address }}
+                        {% else %}
+                            <span class="placeholder">Not provided</span>
+                        {% endif %}
+                    </p>
+
+                    {% comment %} <!-- Form to edit profile details -->
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }} <!-- Render the form fields for profile update -->
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form> {% endcomment %}
+                </div>
+            </section>
+        </div>
 
                 <section id="bookings" class="dashboard-section">
                     <h2>Your Bookings</h2>
@@ -82,29 +116,47 @@
                 <section id="services" class="dashboard-section">
                     <h2>Available Services</h2>
                     <div class="services-list">
-                        <div class="service-item">
-                            <h3>Car Wash</h3>
-                            <p>From basic washes to full detailing.</p>
-                            <button class="btn-primary">Book Now</button>
-                        </div>
-                        <div class="service-item">
-                            <h3>Maintenance & Repairs</h3>
-                            <p>Oil changes, tire checks, and more.</p>
-                            <button class="btn-primary">Book Now</button>
-                        </div>
-                        <div class="service-item">
-                            <h3>Diagnostics & Electrical</h3>
-                            <p>Advanced diagnostic and electrical repairs.</p>
-                            <button class="btn-primary">Book Now</button>
-                        </div>
+                        {% for service in services %}
+                            <div class="service-item">
+                                <h3>{{ service.title }}</h3>
+                                <p>{{ service.description }} Starting at Ksh {{ service.price }}</p>
+                                <button class="btn-primary">Pay Prior</button>
+                                <button class="btn-primary">Book Now</button>  <!-- Added "Book Now" button -->
+                            </div>
+                        {% empty %}
+                            <p>No services available at the moment.</p>
+                        {% endfor %}
                     </div>
+                    <section id="payment-history" class="dashboard-section">
+                        <h2>Payment History</h2>
+                        <div class="payment-history-container">
+                            <!-- Example Entries -->
+                            <div class="payment-item">
+                                <p><strong>Service:</strong> Car Wash</p>
+                                <p><strong>Amount:</strong> Ksh 500</p>
+                                <p><strong>Date:</strong> 2024-12-08</p>
+                                <p><strong>Status:</strong> <span class="status-completed">Completed</span></p>
+                            </div>
+                            <div class="payment-item">
+                                <p><strong>Service:</strong> Oil Change</p>
+                                <p><strong>Amount:</strong> Ksh 1,200</p>
+                                <p><strong>Date:</strong> 2024-12-07</p>
+                                <p><strong>Status:</strong> <span class="status-pending">Pending</span></p>
+                            </div>
+                            <!-- Placeholder for No Payments -->
+                            <div class="no-payments">
+                                <p>No payments made yet.</p>
+                            </div>
+                        </div>
+                    </section>
+                    
                 </section>
 
                 <section id="settings" class="dashboard-section">
                     <h2>Settings</h2>
                     <div class="settings-options">
                         <button class="btn-primary">Change Password</button>
-                        <button class="btn-secondary">Logout</button>
+                        <a href="{% url 'dashboard:logout' %}" class="btn-secondary" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
                     </div>
                 </section>
 

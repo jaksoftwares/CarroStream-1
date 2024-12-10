@@ -2,121 +2,213 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Service
 from .forms import ServiceForm
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from .models import Service, PricingPlan, TeamMember, Testimonial, FAQ, Booking, Payment, MediaFile
+from django.core.files.storage import FileSystemStorage
+from django.contrib import messages
+from .forms import ServiceForm, PricingPlanForm, TeamMemberForm, TestimonialForm, FAQForm, BookingForm, PaymentForm, MediaFileForm
 
 def services_page(request):
     services = Service.objects.all() 
-    return render(request, 'services/services.html', {'services': services})
+    return render(request, 'services/services.html', {'page_title': 'Services'}, {'services': services} )
 
-# View to fetch all services or a specific service
-def get_services(request, pk=None):
-    if pk:
-        # Fetch a specific service by pk
-        try:
-            service = Service.objects.get(pk=pk)
-            service_data = {
-                'id': service.id,
-                'title': service.title,
-                'price': service.price,
-                'description': service.description,
-                'image': service.image.url if service.image else None
-            }
-            return JsonResponse({'status': 'success', 'service': service_data})
-        except Service.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'Service not found'}, status=404)
-    else:
-        # Fetch all services
-        services = Service.objects.all()
-        service_data = [
-            {
-                'id': service.id,
-                'title': service.title,
-                'price': service.price,
-                'description': service.description,
-                'image': service.image.url if service.image else None
-            }
-            for service in services
-        ]
-        return JsonResponse({'services': service_data})
 
-# View to add a new service
+
+# Dashboard View
+def dashboard(request):
+    # Fetch all the objects for the dashboard sections
+    services = Service.objects.all()
+    pricing_plans = PricingPlan.objects.all()
+    team_members = TeamMember.objects.all()
+    testimonials = Testimonial.objects.all()
+    faqs = FAQ.objects.all()
+    bookings = Booking.objects.all()
+    payments = Payment.objects.all()
+    media_files = MediaFile.objects.all()
+    
+    context = {
+        'services': services,
+        'pricing_plans': pricing_plans,
+        'team_members': team_members,
+        'testimonials': testimonials,
+        'faqs': faqs,
+        'bookings': bookings,
+        'payments': payments,
+        'media_files': media_files,
+    }
+    
+    return render(request, 'dashboard/siteadmin_dashboard.html', context)
+
+
+# Add and Save Service
 def add_service(request):
     if request.method == 'POST':
-        title = request.POST.get('title')
-        price = request.POST.get('price')
-        description = request.POST.get('description')
-        image = request.FILES.get('image')  # For file upload
-        try:
-            # Create a new service object
-            service = Service.objects.create(
-                title=title,
-                price=price,
-                description=description,
-                image=image
-            )
+        # Initialize the form with POST data and the uploaded image
+        form = ServiceForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            # Save the form data to the database
+            form.save()
+            # Redirect back to the dashboard (or to another URL)
+            return redirect('services:dashboard')  # Ensure this points to your dashboard URL name
+    else:
+        form = ServiceForm()  # Create a blank form for GET requests
 
-            # Fetch the updated list of services
-            services = Service.objects.all()
+    # Fetch services to display them in the table
+    services = Service.objects.all()
 
-            # Prepare the updated list of services to send in the response
-            service_list = [
-                {
-                    'id': service.id,
-                    'title': service.title,
-                    'price': service.price
-                } for service in services
-            ]
+    # Pass the form and the list of services to the template
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form, 'services': services})
 
-            # Return success response with the updated list of services
-            return JsonResponse({
-                'status': 'success',
-                'message': 'Service added successfully!',
-                'services': service_list
-            })
 
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
 
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
-def edit_service(request, pk):
-    service = get_object_or_404(Service, pk=pk)
 
-    if request.method == 'GET':
-        # Return the service details to pre-fill the form
-        service_data = {
-            'id': service.id,
-            'title': service.title,
-            'price': service.price,
-            'description': service.description,
-            'image': service.image.url if service.image else None
-        }
-        return JsonResponse({'status': 'success', 'service': service_data})
 
-    elif request.method == 'POST':
-        # Update the service with new data
-        form = ServiceForm(request.POST, request.FILES, instance=service)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Add and Save Pricing Plan
+def add_pricing_plan(request):
+    if request.method == 'POST':
+        form = PricingPlanForm(request.POST)
         if form.is_valid():
             form.save()
-            # Return the updated service data as JSON
-            updated_service = {
-                'id': service.id,
-                'title': service.title,
-                'price': service.price,
-                'description': service.description,
-                'image': service.image.url if service.image else None
-            }
-            return JsonResponse({'status': 'success', 'message': 'Service updated successfully', 'service': updated_service})
-
-    return JsonResponse({'status': 'error', 'message': 'Invalid data or request'})
-
-
-def delete_service(request, pk):
-    if request.method == 'DELETE':
-        try:
-            service = get_object_or_404(Service, pk=pk)
-            service.delete()
-            return JsonResponse({'status': 'success', 'message': 'Service deleted successfully!'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
+            pricing_plans = PricingPlan.objects.all()
+            html = render_to_string('dashboard/siteadmin_dashboard.html', {'pricing_plans': pricing_plans})
+            return JsonResponse({'success': True, 'html': html})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
     else:
-        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+        form = PricingPlanForm()
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form})
+
+
+# Add and Save Team Member
+def add_team_member(request):
+    if request.method == 'POST':
+        form = TeamMemberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            team_members = TeamMember.objects.all()
+            html = render_to_string('dashboard/siteadmin_dashboard.html', {'team_members': team_members})
+            return JsonResponse({'success': True, 'html': html})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = TeamMemberForm()
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form})
+
+
+# Add and Save Testimonial
+def add_testimonial(request):
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST)
+        if form.is_valid():
+            form.save()
+            testimonials = Testimonial.objects.all()
+            html = render_to_string('dashboard/siteadmin_dashboard.html', {'testimonials': testimonials})
+            return JsonResponse({'success': True, 'html': html})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = TestimonialForm()
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form})
+
+
+# Add and Save FAQ
+def add_faq(request):
+    if request.method == 'POST':
+        form = FAQForm(request.POST)
+        if form.is_valid():
+            form.save()
+            faqs = FAQ.objects.all()
+            html = render_to_string('dashboard/siteadmin_dashboard.html', {'faqs': faqs})
+            return JsonResponse({'success': True, 'html': html})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = FAQForm()
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form})
+
+
+# Add and Save Booking
+def add_booking(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            bookings = Booking.objects.all()
+            html = render_to_string('dashboard/siteadmin_dashboard.html', {'bookings': bookings})
+            return JsonResponse({'success': True, 'html': html})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = BookingForm()
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form})
+
+
+# Add and Save Payment
+def add_payment(request):
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            payments = Payment.objects.all()
+            html = render_to_string('dashboard/siteadmin_dashboard.html', {'payments': payments})
+            return JsonResponse({'success': True, 'html': html})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = PaymentForm()
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form})
+
+
+# Add and Save Media File
+def add_media(request):
+    if request.method == 'POST':
+        form = MediaFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            media_files = MediaFile.objects.all()
+            html = render_to_string('dashboard/siteadmin_dashboard.html', {'media_files': media_files})
+            return JsonResponse({'success': True, 'html': html})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = MediaFileForm()
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form})
+
+
+def delete_service(request, service_id):
+    try:
+        if request.method == 'POST':
+            service = get_object_or_404(Service, id=service_id)
+            service.delete()
+            return JsonResponse({'success': True})
+        return JsonResponse({'success': False, 'error': 'Invalid method'}, status=400)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)

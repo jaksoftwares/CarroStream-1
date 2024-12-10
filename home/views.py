@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from services.models import Service
 
 def home(request):
     return render(request, 'home/index.html')
@@ -8,6 +9,12 @@ def about(request):
 
 def services(request):
     return render(request, 'services/services.html', {'page_title': 'Services'})
+def services_page(request):
+    services = Service.objects.all()  # Fetch all services from the database
+    context = {
+        'page_title': 'Services', 
+        'services': services        }
+    return render(request, 'services/services.html', context)
 
 def contact(request):
     return render(request, 'contact/contact.html', {'page_title': 'Contact-us'})
