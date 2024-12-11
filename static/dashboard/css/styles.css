@@ -149,6 +149,17 @@ body {
     color: green;
 }
 
+/* Styling the button group to display the buttons in the same line */
+.button-group {
+    display: flex;
+    gap: 10px;  /* Optional: adds spacing between the buttons */
+    align-items: center;  /* Optional: aligns buttons vertically in the center */
+}
+
+.button-group .btn-primary {
+    margin: 0;  /* Optional: ensures no extra margin between buttons */
+}
+
 .btn-primary, .btn-secondary {
     padding: 10px 20px;
     border-radius: 5px;
@@ -172,6 +183,39 @@ body {
 
 .btn-secondary:hover {
     background-color: #e67e22;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    text-align: center;
+}
+
+.modal-actions {
+    margin-top: 20px;
+}
+
+.modal .btn-secondary {
+    background-color: gray;
+}
+
+.modal .btn-danger {
+    background-color: red;
 }
 
 /* Service Section */

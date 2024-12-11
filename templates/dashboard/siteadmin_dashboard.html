@@ -97,7 +97,7 @@
 </div>
 
 <!-- Manage Pricing Section -->
-<div id="dynamic-section">
+{% comment %} <div id="dynamic-section">
     <h2>Manage Pricing</h2>
     <button id="add-pricing-btn">Add Pricing Plan</button>
     <table id="pricing-table">
@@ -123,7 +123,7 @@
             {% endfor %}
         </tbody>
     </table>
-</div>
+</div> {% endcomment %}
 
 <!-- Manage Team Section -->
 <div id="dynamic-section">
@@ -287,9 +287,9 @@
 
 
                                 <!-- Form for Adding or Editing a Service -->
-                                <div id="add-service-form" style="display: none;">
+                                <div id="add-service-form" style="display: none;" class="add-form">
                                     <h3 id="form-title">Add Service</h3>
-                                    <form id="service-form-content" method="POST" enctype="multipart/form-data" action="{% url 'services:add_service' %}">
+                                    <form id="service-form-content" method="POST" enctype="multipart/form-data" action="{% url 'services:add_service' %}" data-edit-url="{% url 'services:edit_service' service_id=0 %}">
                                         {% csrf_token %}
                                         <input type="hidden" id="service-id" name="service-id">
                                     
@@ -309,7 +309,29 @@
                                     </form>
                                 </div>
 
-                                <div id="pricing-form" style="display: none;">
+                                
+
+                                <!-- Form for Adding or Editing a Team Member -->
+                            <div id="team-form" style="display: none;" class="add-form">
+                                <h3 id="form-title">Add Team Member</h3>
+                                <form id="team-form-content" method="POST" enctype="multipart/form-data" action="{% url 'services:add_team_member' %}" data-edit-url="{% url 'services:edit_team_member' team_member_id=0 %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="team-id" name="team-id">
+                                    
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                    
+                                    <label for="role">Role</label>
+                                    <input type="text" id="role" name="role" required>
+                                    
+                                    <label for="profile-picture">Profile Picture</label>
+                                    <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+                                    
+                                    <button type="submit" id="submit-btn">Save</button>
+                                </form>
+                            </div>
+
+                            {% comment %} <div id="pricing-form" style="display: none;">
                                     <h3 id="form-title">Add Pricing Plan</h3>
                                     <form id="pricing-form-content" method="POST">
                                         {% csrf_token %}
@@ -326,86 +348,71 @@
                                 
                                         <button type="submit" id="submit-btn">Save</button>
                                     </form>
-                                </div>
+                                </div> {% endcomment %}
 
-                                <div id="team-form" style="display: none;">
-                                    <h3 id="form-title">Add Team Member</h3>
-                                    <form id="team-form-content" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" id="team-id" name="team-id">
-                                
-                                        <label for="name">Name</label>
-                                        <input type="text" id="name" name="name" required>
-                                
-                                        <label for="role">Role</label>
-                                        <input type="text" id="role" name="role" required>
-                                
-                                        <label for="profile-picture">Profile Picture</label>
-                                        <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
-                                
-                                        <button type="submit" id="submit-btn">Save</button>
-                                    </form>
-                                </div>
-                                <div id="testimonial-form" style="display: none;">
-                                    <h3 id="form-title">Add Testimonial</h3>
-                                    <form id="testimonial-form-content" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" id="testimonial-id" name="testimonial-id">
-                                
-                                        <label for="user">User</label>
-                                        <input type="text" id="user" name="user" required>
-                                
-                                        <label for="feedback">Feedback</label>
-                                        <textarea id="feedback" name="feedback" required></textarea>
-                                
-                                        <button type="submit" id="submit-btn">Save</button>
-                                    </form>
-                                </div>
+                            <!-- Form for Adding or Editing a Testimonial -->
+                            {% comment %} <div id="testimonial-form" style="display: none;" class="add-form">
+                                <h3 id="form-title">Add Testimonial</h3>
+                                <form id="testimonial-form-content" method="POST" action="{% url 'services:add_testimonial' %}" data-edit-url="{% url 'services:edit_testimonial' testimonial_id=0 %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="testimonial-id" name="testimonial-id">
+                                    
+                                    <label for="user">User</label>
+                                    <input type="text" id="user" name="user" required>
+                                    
+                                    <label for="feedback">Feedback</label>
+                                    <textarea id="feedback" name="feedback" required></textarea>
+                                    
+                                    <button type="submit" id="submit-btn">Save</button>
+                                </form>
+                            </div> {% endcomment %}
 
+                            <!-- Form for Adding or Editing a Booking -->
+                            {% comment %} <div id="booking-form" style="display: none;" class="add-form">
+                                <h3 id="form-title">Add Booking</h3>
+                                <form id="booking-form-content" method="POST" action="{% url 'services:add_booking' %}" data-edit-url="{% url 'services:edit_booking' booking_id=0 %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="booking-id" name="booking-id">
+                                    
+                                    <label for="user">User</label>
+                                    <input type="text" id="user" name="user" required>
+                                    
+                                    <label for="service">Service</label>
+                                    <input type="text" id="service" name="service" required>
+                                    
+                                    <label for="date">Date</label>
+                                    <input type="date" id="date" name="date" required>
+                                    
+                                    <label for="status">Status</label>
+                                    <select id="status" name="status" required>
+                                        <option value="pending">Pending</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                    
+                                    <button type="submit" id="submit-btn">Save</button>
+                                </form>
+                            </div> {% endcomment %}
 
-                                <div id="booking-form" style="display: none;">
-                                    <h3 id="form-title">Add Booking</h3>
-                                    <form id="booking-form-content" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" id="booking-id" name="booking-id">
-                                
-                                        <label for="user">User</label>
-                                        <input type="text" id="user" name="user" required>
-                                
-                                        <label for="service">Service</label>
-                                        <input type="text" id="service" name="service" required>
-                                
-                                        <label for="date">Date</label>
-                                        <input type="date" id="date" name="date" required>
-                                
-                                        <label for="status">Status</label>
-                                        <select id="status" name="status" required>
-                                            <option value="pending">Pending</option>
-                                            <option value="completed">Completed</option>
-                                        </select>
-                                
-                                        <button type="submit" id="submit-btn">Save</button>
-                                    </form>
-                                </div>
+                            <!-- Form for Adding or Editing a Payment -->
+                            {% comment %} <div id="payment-form" style="display: none;" class="add-form">
+                                <h3 id="form-title">Add Payment</h3>
+                                <form id="payment-form-content" method="POST" action="{% url 'services:add_payment' %}" data-edit-url="{% url 'services:edit_payment' payment_id=0 %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="payment-id" name="payment-id">
+                                    
+                                    <label for="user">User</label>
+                                    <input type="text" id="user" name="user" required>
+                                    
+                                    <label for="amount">Amount</label>
+                                    <input type="number" id="amount" name="amount" required>
+                                    
+                                    <label for="date">Date</label>
+                                    <input type="date" id="date" name="date" required>
+                                    
+                                    <button type="submit" id="submit-btn">Save</button>
+                                </form>
+                            </div> {% endcomment %}
 
-                                <div id="payment-form" style="display: none;">
-                                    <h3 id="form-title">Add Payment</h3>
-                                    <form id="payment-form-content" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" id="payment-id" name="payment-id">
-                                
-                                        <label for="user">User</label>
-                                        <input type="text" id="user" name="user" required>
-                                
-                                        <label for="amount">Amount</label>
-                                        <input type="number" id="amount" name="amount" required>
-                                
-                                        <label for="date">Date</label>
-                                        <input type="date" id="date" name="date" required>
-                                
-                                        <button type="submit" id="submit-btn">Save</button>
-                                    </form>
-                                </div>
 
   <!-- Service Edit Form (Initially Hidden) -->
   <div id="edit-service-form" style="display: none;">

@@ -52,6 +52,7 @@
     color: #fff;
     border: none;
   }
+
   
   .hero-buttons .btn-primary:hover {
     background-color: #0056b3;
@@ -279,66 +280,99 @@
   background-color: #0056b3;
 }
 
-/* Pricing Section */
 .pricing-section {
-  padding: 40px 20px;
   background-color: #f9f9f9;
+  padding: 40px 20px;
   text-align: center;
 }
+.pricing-section .container{
+  margin: auto;
+}
 
-.pricing-section h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.services-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.service-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: left;
+}
+
+.service-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.packages .package-item {
+  margin-bottom: 15px;
+}
+
+.package-item h4 {
+  font-size: 18px;
   color: #333;
 }
 
-.pricing-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.price-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-size: 1rem;
-  font-weight: bold;
+.package-item p {
+  font-size: 14px;
   color: #555;
+  margin: 5px 0;
 }
 
-.price-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+.price {
+  font-weight: bold;
+  color: #28a745;
+  margin-bottom: 10px;
+  display: block;
 }
 
-.pricing-cta {
-  margin-top: 30px;
-}
-
-.pricing-cta .btn-primary {
-  display: inline-block;
-  padding: 12px 24px;
-  font-size: 1rem;
+.btn-primary {
+  background: #007bff;
   color: #fff;
-  background-color: #007bff;
   border: none;
-  border-radius: 8px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
   text-decoration: none;
-  transition: background-color 0.3s ease;
 }
 
-.pricing-cta .btn-primary:hover {
-  background-color: #0056b3;
+.btn-primary:hover {
+  background: #0056b3;
 }
+
+.btn-secondary {
+  display: inline-block;
+  margin-top: 20px;
+  color: #fff;
+  background: #6c757d;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
 
 /* CTA Banner Section */
 .cta-banner {
@@ -350,14 +384,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  margin: 40px 20px;
+  margin: 40px 0px 0px 0px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
 .cta-banner:hover {
-  transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -656,7 +688,7 @@
 
 /* How It Works Section */
 .how-it-works {
-  background-color: #1435cc;
+  background: linear-gradient(to right, #007bff, #0056b3);
   padding: 60px 20px;
   text-align: center;
 }
@@ -679,6 +711,7 @@
 }
 .how-it-works .container{
 text-align: center;
+margin:auto;
 }
 
 .how-it-works .steps {

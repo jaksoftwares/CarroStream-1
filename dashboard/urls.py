@@ -9,7 +9,6 @@ urlpatterns = [
     path('admin/', views.admin_dashboard, name='admin'),
      path('logout/', views.custom_logout, name='logout'),
     path('siteadmin', views.siteadmin_dashboard, name="siteadmin"),
-    path('book_service/', views.book_service, name='book_service'),
     path('my_appointments/', views.my_appointments, name='my_appointments'),
     path('my_vehicles/', views.my_vehicles, name='my_vehicles'),
     path('account_settings/', views.account_settings, name='account_settings'),
@@ -17,3 +16,4 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('dummy/', views.dummy, name='dummy'),
 ]
+

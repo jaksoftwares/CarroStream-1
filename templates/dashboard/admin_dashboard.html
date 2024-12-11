@@ -46,106 +46,118 @@
             </div>
         </div>
 
-        <!-- Dashboard Overview Section -->
-        <div id="dashboard-overview" class="dashboard-overview">
-            <h2>Dashboard Overview</h2>
-            <div class="dashboard-cards">
-                <div class="card">
-                    <h3>Total Bookings</h3>
-                    <p>100</p>
-                </div>
-                <div class="card">
-                    <h3>Total Services</h3>
-                    <p>10</p>
-                </div>
-                <div class="card">
-                    <h3>Pending Bookings</h3>
-                    <p>5</p>
-                </div>
-                <div class="card">
-                    <h3>Active Users</h3>
-                    <p>200</p>
-                </div>
-            </div>
+ <!-- Dashboard Overview Section -->
+<div id="dashboard-overview" class="dashboard-overview">
+    <h2>Dashboard Overview</h2>
+    <div class="dashboard-cards">
+        <div class="card">
+            <h3>Total Bookings</h3>
+            <p>{{ total_bookings }}</p> <!-- Correct variable name -->
         </div>
+        <div class="card">
+            <h3>Total Services</h3>
+            <p>{{ total_services }}</p> <!-- Correct variable name -->
+        </div>
+        <div class="card">
+            <h3>Pending Bookings</h3>
+            <p>{{ pending_bookings }}</p> <!-- Correct variable name -->
+        </div>
+        <div class="card">
+            <h3>Active Users</h3>
+            <p>{{ active_users }}</p> <!-- Correct variable name -->
+        </div>
+    </div>
+</div>
         
         <!-- Services Management Section -->
-        <div id="services-management" class="services-management">
-            <h2>Manage Services</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Service Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Car Wash</td>
-                        <td>Basic car cleaning</td>
-                        <td>KSh 500</td>
-                        <td>Active</td>
-                        <td><button>Edit</button><button>Delete</button></td>
-                    </tr>
-                    <!-- More services here -->
-                </tbody>
-            </table>
-            <button>Add New Service</button>
-        </div>
+<div id="services-management" class="services-management">
+    <h2>Manage Services</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in services %}
+            <tr>
+                <td>{{ service.name }}</td>
+                <td>{{ service.description }}</td>
+                <td>KSh {{ service.price }}</td>
+                <td>{{ service.status }}</td>
+                <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No services available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button>Add New Service</button>
+</div>
 
         <!-- Bookings Management Section -->
-        <div id="bookings-management" class="bookings-management">
-            <h2>Manage Bookings</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Service</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>Car Wash</td>
-                        <td>2024-12-06</td>
-                        <td>Pending</td>
-                        <td><button>View</button><button>Cancel</button></td>
-                    </tr>
-                    <!-- More bookings here -->
-                </tbody>
-            </table>
-        </div>
+<div id="bookings-management" class="bookings-management">
+    <h2>Manage Bookings</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.service.name }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.status }}</td>
+                <td>
+                    <button>View</button>
+                    <button>Cancel</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
         
-        <!-- User Management Section -->
-        <div id="user-management" class="user-management">
-            <h2>Manage Users</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Jane Doe</td>
-                        <td>jane@example.com</td>
-                        <td>Active</td>
-                        <td><button>Edit</button><button>Delete</button></td>
-                    </tr>
-                    <!-- More users here -->
-                </tbody>
-            </table>
-        </div>
-
+       <!-- User Management Section -->
+<div id="user-management" class="user-management">
+    <h2>Manage Users</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.is_active|yesno:"Active,Inactive" }}</td>
+                <td><button>Edit</button><button>Delete</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
         <!-- Admin Roles Section -->
         <div id="admin-roles" class="admin-roles">
             <h2>Admin Roles</h2>

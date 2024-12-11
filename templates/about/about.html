@@ -6,70 +6,26 @@
 {% include 'partials/page-banner.html' %}
 <section class="about-preview">
     <div class="about-container">
+
+        <div class="about-text">
+            <h2>About CarroStream Garage</h2>
+            <p>
+              CarroStream Garage is committed to providing exceptional auto care services with the highest standards of reliability, affordability, and transparency. We cater to car owners who value their vehicles and seek trustworthy, long-term service solutions. With a customer-first approach, we strive to make car maintenance hassle-free with easy online booking, clear pricing, and quality services you can rely on.
+            </p>
+          </div>
         <div class="about-image">
             <img src="{% static 'about/images/about-garage.jpg' %}" alt="CarroStream Garage Overview">
-          </div>
-      <div class="about-text">
-        <h2>About CarroStream Garage</h2>
-        <p>
-          CarroStream Garage is committed to providing exceptional auto care services with the highest standards of reliability, affordability, and transparency. We cater to car owners who value their vehicles and seek trustworthy, long-term service solutions. With a customer-first approach, we strive to make car maintenance hassle-free with easy online booking, clear pricing, and quality services you can rely on.
-        </p>
-      </div>
-      
+          </div>      
     </div>
     
   </section>
-  <!-- Key Features/Benefits Section -->
-<section class="features-section">
-  <h2>Why Choose CarroStream?</h2>
-  <div class="features-container">
-      <!-- Feature 1 -->
-      <div class="feature-card">
-          <h3>Real-Time Bookings</h3>
-          <p>Book your service at any time, day or night. Instant confirmation and easy rescheduling.</p>
-      </div>
-      <!-- Feature 2 -->
-      <div class="feature-card">
-          <h3>Transparent Pricing</h3>
-          <p>No hidden costs. What you see is what you get, with detailed pricing for every service.</p>
-      </div>
-      <!-- Feature 3 -->
-      <div class="feature-card">
-          <h3>Expert Technicians</h3>
-          <p>Our technicians are certified professionals, ensuring quality service for every car that enters our garage.</p>
-      </div>
-      <!-- Feature 4 -->
-      <div class="feature-card">
-          <h3>Customer Loyalty Program</h3>
-          <p>Earn points with every service and enjoy discounts or free services as you continue to book with CarroStream.</p>
-      </div>
-  </div>
-  <div class="features-cta">
-      <a href="{% url 'booking' %}" class="btn-primary">Start Booking Today</a>
-  </div>
-</section>
-<div class="about-page">
-
-  <!-- Introduction Section -->
-  <section id="about-intro" class="section">
-      <div class="container">
-          <div class="intro-content">
-              <h1>Welcome to CarroStream</h1>
-              <p>At CarroStream, we are redefining car care and repair services through technology and innovation. Experience seamless booking, transparent pricing, and quality services every time.</p>
-              <a href="{% url 'services' %}" class="btn btn-primary">Explore Our Services</a>
-          </div>
-          <div class="intro-image">
-              <img src="{% static 'about/images/about-garage.jpg' %}" alt="CarroStream Introduction">
-          </div>
-      </div>
-  </section>
-
+ 
   <!-- Mission, Vision, Values -->
 <section id="mission-vision-values" class="section bg-light">
   <div class="section-header">
     <h2>Our Mission, Vision & Values</h2>
 </div>
-  <div class="container">
+  <div class="mission-container">
       <div class="mvv-grid">
           <div class="mvv-card">
               <i class="icon icon-mission"></i>
@@ -111,8 +67,30 @@
                   <p>Expanded services to cover more cities and introduced advanced features.</p>
               </div>
           </div>
+          <!-- Growth Carousel -->
+      <div class="growth-carousel">
+        <div class="carousel">
+          <div class="carousel-slide active">
+            <img src="{% static 'about/images/future1.jpg' %}" alt="Growth Milestone 1" />
+            <p>Connecting 10,000 users by 2025.</p>
+          </div>
+          <div class="carousel-slide">
+            <img src="{% static 'about/images/future2.jpg' %}" alt="Growth Milestone 2" />
+            <p>Expanding to 10 major cities by 2026.</p>
+          </div>
+          <div class="carousel-slide">
+            <img src="{% static 'about/images/future3.jpg' %}" alt="Growth Milestone 3" />
+            <p>Introducing advanced AI diagnostics by 2027.</p>
+          </div>
+        </div>
+        {% comment %} <div class="carousel-controls">
+          <button class="prev">&lt;</button>
+          <button class="next">&gt;</button>
+        </div> {% endcomment %}
       </div>
-  </section>
+    </div>
+  </div>
+</section>
 
   <!-- Our Team -->
   <section id="our-team" class="section bg-light">
@@ -144,7 +122,36 @@
           </div>
       </div>
   </section>
-
+ <!-- Key Features/Benefits Section -->
+ <section class="features-section">
+    <h2>Why Choose CarroStream?</h2>
+    <div class="features-container">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+            <h3>Real-Time Bookings</h3>
+            <p>Book your service at any time, day or night. Instant confirmation and easy rescheduling.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="feature-card">
+            <h3>Transparent Pricing</h3>
+            <p>No hidden costs. What you see is what you get, with detailed pricing for every service.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="feature-card">
+            <h3>Expert Technicians</h3>
+            <p>Our technicians are certified professionals, ensuring quality service for every car that enters our garage.</p>
+        </div>
+        <!-- Feature 4 -->
+        <div class="feature-card">
+            <h3>Customer Loyalty Program</h3>
+            <p>Earn points with every service and enjoy discounts or free services as you continue to book with CarroStream.</p>
+        </div>
+    </div>
+    <div class="features-cta">
+        <a href="{% url 'booking' %}" class="btn-primary">Start Booking Today</a>
+    </div>
+  </section>
+  <div class="about-page">
   <!-- Our Impact -->
   <section id="our-impact" class="section">
     <div class="section-header" text-align = "center">
@@ -181,3 +188,4 @@
 </div>
 
 {% endblock %}
+<script src="{% static 'about/js/scripts.js' %}"><script>

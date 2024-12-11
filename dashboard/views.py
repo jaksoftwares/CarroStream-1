@@ -4,12 +4,15 @@ from django.contrib.auth.decorators import login_required
 from services.models import Service
 from .models import Appointment, Vehicle
 from django.contrib import messages
-from .forms import BookServiceForm, AccountSettingsForm, ContactSupportForm
+from .forms import AccountSettingsForm, ContactSupportForm
 from accounts.models import UserProfile
 from accounts.forms import UserProfileForm
 from django.contrib.auth import logout
 from services.models import Service 
-
+from booking.models import Booking
+from django.contrib.auth import get_user_model
+from accounts.models import User
+User.objects.all()
 
 
 @login_required
@@ -43,29 +46,46 @@ def custom_logout(request):
     logout(request)
     return redirect('home') 
 
+
+
+
+
+@login_required
 def admin_dashboard(request):
-    return render(request, 'dashboard/admin_dashboard.html')
+    # Get data for dashboard overview
+    total_bookings = Booking.objects.count()
+    pending_bookings = Booking.objects.filter(status='Pending').count()
+    total_services = Service.objects.count()
+    active_users = get_user_model().objects.filter(is_active=True).count()
+
+    # Get the list of services, bookings, and users
+    services = Service.objects.all()
+    bookings = Booking.objects.all()
+    users = get_user_model().objects.all()
+
+    # Pass the data to the template
+    context = {
+        'total_bookings': total_bookings,
+        'pending_bookings': pending_bookings,
+        'total_services': total_services,
+        'active_users': active_users,
+        'services': services,
+        'bookings': bookings,
+        'users': users,
+    }
+
+    return render(request, 'dashboard/admin_dashboard.html', context)
+
+
+
+
+
+
+
 def siteadmin_dashboard(request):
     services = Service.objects.all()  # Fetch all services
     return render(request, 'dashboard/siteadmin_dashboard.html', {'services': services})
 
-# Book a Service
-@login_required
-def book_service(request):
-    user = request.user
-    if request.method == 'POST':
-        form = BookServiceForm(request.POST)
-        if form.is_valid():
-            service_type = form.cleaned_data['service_type']
-            appointment_date = form.cleaned_data['appointment_date']
-            # Create the appointment
-            Appointment.objects.create(user=user, service_type=service_type, appointment_date=appointment_date, status='upcoming')
-            messages.success(request, f'{service_type} successfully booked for {appointment_date}!')
-            return redirect('user_dashboard')
-    else:
-        form = BookServiceForm()
-
-    return render(request, 'dashboard/book_service.html', {'form': form})
 
 # View My Appointments
 @login_required

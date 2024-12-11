@@ -131,7 +131,7 @@ button:hover {
     opacity: 1;
     transition: opacity 0.5s ease;
 }
-#add-service-form {
+.add-form {
     display: none;
     position: fixed; /* Position fixed to keep the form in view */
     top: 50%;
@@ -145,19 +145,19 @@ button:hover {
     z-index: 9999; /* Ensure it's on top */
 }
 
-#add-service-form h3 {
+.add-form h3 {
     text-align: center;
     margin-bottom: 15px;
 }
 
-#add-service-form label {
+.add-form label {
     display: block;
     font-weight: bold;
     margin: 10px 0 5px;
 }
 
-#add-service-form input,
-#add-service-form textarea {
+.add-form input,
+.add-form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -165,7 +165,7 @@ button:hover {
     border-radius: 4px;
 }
 
-#add-service-form button {
+.add-form button {
     width: 100%;
     padding: 10px;
     background-color: #4CAF50;
@@ -176,10 +176,10 @@ button:hover {
     font-size: 16px;
 }
 
-#add-service-form button:hover {
+.add-form button:hover {
     background-color: #45a049;
 }
 
-#add-service-form input[type="file"] {
+.add-form input[type="file"] {
     padding: 5px;
 }

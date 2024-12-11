@@ -254,7 +254,79 @@
     border-radius: 50%;
     border: 3px solid #fff;
 }
-
+.growth-carousel {
+    flex: 1;
+    position: relative;
+    overflow: hidden; /* Prevents overflow on the sides of the carousel */
+  }
+  
+  .carousel {
+    display: flex;
+    width: 100%;
+    height: 460px;
+    position: relative;
+  }
+  
+  .carousel-slide {
+    min-width: 100%;
+    display: none;
+    text-align: center;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+  }
+  
+  .carousel-slide.active {
+    display: block; /* Only the active slide will be shown */
+  }
+  
+  .carousel-slide img {
+    width: 100%;  /* Ensures the images fill the container */
+    height: 100%;
+    object-fit: cover;  /* Ensures images maintain aspect ratio and fill the container */
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .carousel-slide p {
+    font-size: 1.2rem; /* Slightly bigger text for better visibility */
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .carousel {
+      height: 300px; /* Reduced height for smaller screens */
+    }
+  
+    .carousel-slide img {
+      width: 100%; /* Ensures full width on smaller screens */
+      height: auto; /* Maintain aspect ratio for images */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .carousel {
+      height: 250px; /* Further reduced height for very small screens */
+    }
+  
+    .carousel-slide p {
+      font-size: 1rem; /* Adjusted font size for smaller screens */
+    }
+  }
+  
+  
+  @media (max-width: 480px) {
+    .carousel {
+      height: 250px; /* Further reduced height for very small screens */
+    }
+  
+    .carousel-slide p {
+      font-size: 1rem; /* Adjusted font size for smaller screens */
+    }
+  }
+  
 
 /* Our Team Section */
 #our-team{

@@ -63,8 +63,69 @@ def add_service(request):
     return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form, 'services': services})
 
 
+# View for editing an existing service
+def edit_service(request, service_id):
+    service = get_object_or_404(Service, pk=service_id)
+    
+    if request.method == 'POST':
+        # Update the service with the new data
+        service.title = request.POST.get('title')
+        service.price = request.POST.get('price')
+        service.description = request.POST.get('description')
+        service.image = request.FILES.get('image', service.image)
+        service.save()
+
+        # After saving, redirect back to the dashboard page
+        return redirect('/dashboard/siteadmin')  # Redirect to the dashboard page after edit
+    
+    # Optionally, if you need to prepopulate the form with the current service data, 
+    # you can pass the service instance to the template
+    return render(request, 'dashboard/siteadmin', {'service': service})
+
+def delete_service(request, service_id):
+    try:
+        if request.method == 'POST':
+            service = get_object_or_404(Service, id=service_id)
+            service.delete()
+            return JsonResponse({'success': True})
+        return JsonResponse({'success': False, 'error': 'Invalid method'}, status=400)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
 
+# Add Team Member
+def add_team_member(request):
+    if request.method == 'POST':
+        # Handle form submission to add a new team member
+        name = request.POST.get('name')
+        role = request.POST.get('role')
+        TeamMember.objects.create(name=name, role=role)
+        return redirect('dashboard:siteadmin')  # Redirect to the dashboard page
+    
+    return render(request, 'dashboard/siteadmin_dashboard.html')
+
+# Edit Team Member
+def edit_team_member(request, team_member_id):
+    team_member = get_object_or_404(TeamMember, pk=team_member_id)
+    
+    if request.method == 'POST':
+        team_member.name = request.POST.get('name')
+        team_member.role = request.POST.get('role')
+        team_member.save()
+        return redirect('dashboard:siteadmin')  # Redirect after saving
+
+    return render(request, 'dashboard/siteadmin_dashboard.html', {'team_member': team_member})
+
+# Delete Team Member
+def delete_team_member(request, team_member_id):
+    try:
+        if request.method == 'POST':
+            team_member = get_object_or_404(TeamMember, pk=team_member_id)
+            team_member.delete()
+            return JsonResponse({'success': True})
+        return JsonResponse({'success': False, 'error': 'Invalid method'}, status=400)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
 
 
@@ -202,13 +263,3 @@ def add_media(request):
         form = MediaFileForm()
     return render(request, 'dashboard/siteadmin_dashboard.html', {'form': form})
 
-
-def delete_service(request, service_id):
-    try:
-        if request.method == 'POST':
-            service = get_object_or_404(Service, id=service_id)
-            service.delete()
-            return JsonResponse({'success': True})
-        return JsonResponse({'success': False, 'error': 'Invalid method'}, status=400)
-    except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)}, status=500)
