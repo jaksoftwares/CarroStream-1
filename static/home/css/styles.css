@@ -5,6 +5,7 @@
     justify-content: space-between;
     padding: 50px 20px;
     background-color: #f5f7fa;
+    padding-top: 150px;
   }
   
   .hero-container {
@@ -51,11 +52,17 @@
     background-color: #007bff;
     color: #fff;
     border: none;
+    text-align: center;
+    align-items: center;
+    border: 2px solid #007bff;
+    height: 30px;
+    padding-top: 15px;
   }
 
   
   .hero-buttons .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #feffff;
+    color: #007bff;
   }
   
   .hero-buttons .btn-secondary {
@@ -113,7 +120,7 @@
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 20px;
+  gap: 40px;
 }
 
 .about-text {

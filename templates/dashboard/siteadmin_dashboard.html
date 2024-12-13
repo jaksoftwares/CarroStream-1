@@ -45,21 +45,23 @@
                 <div class="cards">
                     <div class="card">
                         <h3>Total Services</h3>
-                        <p>25</p>
+                        <p>{{ total_services }}</p>
                     </div>
                     <div class="card">
                         <h3>Total Users</h3>
-                        <p>134</p>
+                        <p>{{ total_users }}</p>
                     </div>
                     <div class="card">
                         <h3>Revenue</h3>
-                        <p>Ksh 50,000</p>
+                        <p>Ksh {{ total_revenue }}</p>
                     </div>
                     <div class="card">
                         <h3>Pending Appointments</h3>
-                        <p>12</p>
+                        <p>{{ pending_bookings }}</p>
                     </div>
                 </div>
+            </section>
+            
 
 <!-- Manage Services Section -->
 <div id="dynamic-section">
@@ -127,7 +129,7 @@
 
 <!-- Manage Team Section -->
 <div id="dynamic-section">
-    <h2>Manage Team</h2>
+    {% comment %} <h2>Manage Team</h2>
     <button id="add-team-btn">Add Team Member</button>
     <table id="team-table">
         <thead>
@@ -149,7 +151,29 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table> {% endcomment %}
+    <h2>Contacts</h2>
+{% comment %} <button id="add-contact-btn">Add Contact</button> {% endcomment %}
+<table id="contacts-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contact in contacts %}
+        <tr id="contact-{{ contact.id }}">
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.phone }}</td>
+            <td>{{ contact.message }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 </div>
 
 <!-- Manage Testimonials Section -->

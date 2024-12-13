@@ -67,7 +67,7 @@ class FAQ(models.Model):
 # Booking Model
 class Booking(models.Model):
     user = models.CharField(max_length=100)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='services_bookings')
     date = models.DateField()
     status = models.CharField(max_length=50, choices=[
         ('Pending', 'Pending'),

@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from services.models import Service
+from accounts.models import User
 from .models import Appointment, Vehicle
 from django.contrib import messages
 from .forms import AccountSettingsForm, ContactSupportForm
@@ -12,6 +13,13 @@ from services.models import Service
 from booking.models import Booking
 from django.contrib.auth import get_user_model
 from accounts.models import User
+from django.shortcuts import render, redirect, get_object_or_404
+from accounts.forms import UserProfileForm
+from booking.forms import BookingForm
+from contact.models import ContactMessage
+from .models import Booking
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 User.objects.all()
 
 
@@ -20,26 +28,52 @@ def user_dashboard(request):
     user = request.user
     profile = user.profile
 
-    # Fetch services from the Service model
-    services = Service.objects.all()  # Get all available services from the database
+    # Fetch all services for the dropdown in the form
+    services = Service.objects.all()
+    # Fetch all bookings for the user, ordered by date
+    bookings = Booking.objects.filter(created_at__lte=timezone.now())
 
+    # Handle form submission for updating the user profile
     if request.method == "POST":
-        form = UserProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard')  # Redirect back to the dashboard after saving
+        # Profile form handling
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('dashboard:user_dashboard')  # Redirect after saving profile form
+        # Booking form handling
+        booking_form = BookingForm(request.POST)
+        if booking_form.is_valid():
+            # Get the selected service from the form
+            service_id = request.POST.get('service')
+            service = get_object_or_404(Service, id=service_id)
+            # Create a new booking
+            booking = booking_form.save(commit=False)
+            booking.user = request.user
+            booking.service = service
+            booking.save()
+            messages.success(request, "Your booking has been successfully saved.")
+            return redirect('dashboard:user_dashboard')  # Redirect after submitting booking
     else:
-        form = UserProfileForm(instance=profile)
+        # Empty forms for profile and booking
+        profile_form = UserProfileForm(instance=profile)
+        booking_form = BookingForm()
 
-    # Add the services to the context to be passed to the template
+    # Full name for the user (used in the template)
+    full_name = f"{user.first_name} {user.last_name}"
+
     context = {
         'user': user,
         'user_profile': profile,
-        'form': form,  # Pass the form to the template for rendering
-        'services': services,  # Pass the services to the template
+        'profile_form': profile_form,
+        'booking_form': booking_form,
+        'services': services,
+        'bookings': bookings,
+        'full_name': full_name,
     }
 
     return render(request, 'dashboard/user_dashboard.html', context)
+
+
 
 
 def custom_logout(request):
@@ -83,8 +117,28 @@ def admin_dashboard(request):
 
 
 def siteadmin_dashboard(request):
-    services = Service.objects.all()  # Fetch all services
-    return render(request, 'dashboard/siteadmin_dashboard.html', {'services': services})
+    # Fetch all the data needed for the dashboard
+    total_services = Service.objects.count()  # Count of all services
+    total_users = get_user_model().objects.count()  # Total users
+    pending_bookings = Booking.objects.filter(status='Pending').count()  # Count of pending bookings
+    services = Service.objects.all()  # All services
+    users = get_user_model().objects.all()  # All users
+    contacts = ContactMessage.objects.all()  # Fetch all contact messages
+
+    # Pass the data to the template
+    context = {
+        'total_bookings': pending_bookings,
+        'pending_bookings': pending_bookings,
+        'total_services': total_services,
+        'total_users': total_users,
+        'services': services,
+        'users': users,
+        'contacts': contacts,  # Add contacts to context
+    }
+
+    return render(request, 'dashboard/siteadmin_dashboard.html', context)
+
+
 
 
 # View My Appointments

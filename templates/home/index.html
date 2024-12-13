@@ -18,7 +18,7 @@
               Streamline your car maintenance with professional, reliable, and convenient services. With CarroStream, you get more than just a garage – you get peace of mind for your vehicle.
           </p>
           <div class="hero-buttons">
-              <a href="{% if user.is_authenticated %}{% url 'dashboard:user_dashboard' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-secondary">
+              <a href="{% if user.is_authenticated %}{% url 'dashboard:user_dashboard' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-primary">
                   {% if user.is_authenticated %}Book Your Service{% else %}Login to Book{% endif %}
               </a>
               <a href="{% url 'services' %}" class="btn btn-secondary">Learn More</a>
@@ -195,13 +195,19 @@
             <h4>Basic Wash</h4>
             <p>A quick exterior wash for your car.</p>
             <span class="price">KSh 500</span><br/>
-            <button class="btn-primary">Book Now</button>
+            <a href="{% if user.is_authenticated %}{% url 'dashboard:user_dashboard' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-primary">
+              <button class="btn-primary">{% if user.is_authenticated %}Book Now{% else %}Login to Book{% endif %}</button>
+              </a>
+          </div>
+            {% comment %} <button class="btn-primary">Book Now</button> {% endcomment %}
           </div>
           <div class="package-item">
             <h4>Premium Wash</h4>
             <p>Exterior and interior cleaning with detailing.</p>
             <span class="price">KSh 1,500</span>
-            <button class="btn-primary">Book Now</button>
+            <a href="{% if user.is_authenticated %}{% url 'dashboard:user_dashboard' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-primary">
+            <button class="btn-primary">{% if user.is_authenticated %}Book Now{% else %}Login to Book{% endif %}</button>
+            </a>
           </div>
         </div>
       </div>
@@ -214,13 +220,17 @@
             <h4>Oil Change</h4>
             <p>Includes filter replacement and engine checkup.</p>
             <span class="price">KSh 2,000</span>
-            <button class="btn-primary">Book Now</button>
+            <a href="{% if user.is_authenticated %}{% url 'dashboard:user_dashboard' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-primary">
+              <button class="btn-primary">{% if user.is_authenticated %}Book Now{% else %}Login to Book{% endif %}</button>
+              </a>
           </div>
           <div class="package-item">
             <h4>Tire Rotation</h4>
             <p>Rotate and align tires for optimal performance.</p>
             <span class="price">KSh 1,500</span>
-            <button class="btn-primary">Book Now</button>
+            <a href="{% if user.is_authenticated %}{% url 'dashboard:user_dashboard' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-primary">
+              <button class="btn-primary">{% if user.is_authenticated %}Book Now{% else %}Login to Book{% endif %}</button>
+              </a>
           </div>
         </div>
       </div>
@@ -233,13 +243,17 @@
             <h4>Standard Detailing</h4>
             <p>Exterior waxing and interior vacuuming.</p>
             <span class="price">KSh 3,000</span>
-            <button class="btn-primary">Book Now</button>
+            <a href="{% if user.is_authenticated %}{% url 'dashboard:user_dashboard' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-primary">
+              <button class="btn-primary">{% if user.is_authenticated %}Book Now{% else %}Login to Book{% endif %}</button>
+              </a>
           </div>
           <div class="package-item">
             <h4>Luxury Detailing</h4>
             <p>Full premium cleaning and detailing for your car.</p>
             <span class="price">KSh 4,500</span>
-            <button class="btn-primary">Book Now</button>
+            <a href="{% if user.is_authenticated %}{% url 'dashboard:user_dashboard' %}{% else %}{% url 'login' %}{% endif %}" class="btn btn-primary">
+              <button class="btn-primary">{% if user.is_authenticated %}Book Now{% else %}Login to Book{% endif %}</button>
+              </a>
           </div>
         </div>
       </div>
@@ -261,14 +275,16 @@
   </div>
 
 <!-- Live Chat Button -->
-<div id="live-chat-btn" class="chat-btn">
+{% comment %} <div id="live-chat-btn" class="chat-btn">
   <a href="javascript:void(0)" onclick="openChat()">💬</a>
-</div>
+</div> {% endcomment %}
 
 <!-- WhatsApp Chat Button -->
-{% comment %} <div id="whatsapp-btn" class="whatsapp-btn">
-  <a href="https://wa.me/+2547XXXXXXXXX" target="_blank">📱</a>
-</div> {% endcomment %}
+<div id="whatsapp-btn" class="whatsapp-btn">
+  <a href="https://wa.me/+254714703374" target="_blank">
+    <img src="{% static 'home/images/whatsapp-icon.png'%}" alt="WhatsApp" style="width: 50px; height: 50px;">
+  </a>
+</div>
 
 <script type="text/javascript">
   // Function to open the live chat (to be implemented later)

@@ -12,6 +12,7 @@
     <!-- Add FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'dashboard/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/css/modal.css' %}">
 
 </head>
 <body>
@@ -110,41 +111,66 @@
                             {{ booking.status|title }}
                         </span>
                     </p>
-                    <button class="btn-secondary" onclick="viewBookingDetails({{ booking.id }})">View Details</button>
-                    {% if booking.status == 'Pending' %}
+                    {% comment %} <button class="btn-secondary" onclick="viewBookingDetails({{ booking.id }})">View Details</button> {% endcomment %}
+                    <div class="button-group">
+                        <button class="btn-primary" id="openModalBtn">Pay Prior</button>
+                        {% comment %} <form action="{% url 'booking:book_service' service.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-primary book-now-btn">Book Now</button>
+                        </form> {% endcomment %}
+                        {% comment %} <button class="btn-primary" id="openModalBtn">Pay Prior</button> {% endcomment %}
+                    </div>
+                    {% comment %} {% if booking.status == 'Pending' %}
                     <!-- Cancel Booking Form -->
-                    {% comment %} {% url 'booking:cancel_booking' booking.id %} {% endcomment %}
+                    {% url 'booking:cancel_booking' booking.id %}
                     <form action="" method="POST" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit" class="btn-danger">Cancel Booking</button>
-                    </form>
-                    {% endif %}
+                        
+
+                    {% endif %} {% endcomment %}
                 </div>
                 {% empty %}
                 <p>No bookings available. Book a service to get started.</p>
                 {% endfor %}
-                <button class="btn-primary" id="new-booking-btn">Book New Service</button>
+                <button class="btn-primary book-service-btn">Book New Service</button>
             </div>
-        </section>
-        <!-- Confirmation Modal -->
-            <div id="confirmation-modal" class="modal">
-                <div class="modal-content">
-                    <h2>Are you sure you want to cancel this booking?</h2>
-                    <div class="modal-actions">
-                        <button id="cancel-btn" class="btn-secondary">No</button>
-                        <button id="confirm-btn" class="btn-danger">Yes</button>
-                    </div>
-                </div>
+  <!-- Booking Form Inside the Dashboard -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <!-- Close Button Inside the Modal Content -->
+        <span class="close-btn">&times;</span>
+        <h2>Book a New Service</h2>
+        <form action="{% url 'dashboard:user_dashboard' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required class="form-control" value="{{ user.full_name }}" readonly>
             </div>
-            <!-- Modal for canceling booking -->
-                <div id="cancelErrorModal" class="modal" style="display:none;">
-                    <div class="modal-content">
-                        <h4>Cannot Cancel Booking</h4>
-                        <p id="cancelErrorMessage"></p>
-                        <button class="btn-primary" onclick="closeModal()">Close</button>
-                    </div>
-                </div>
-
+            <div class="form-group">
+                <label for="service">Service Type</label>
+                <select id="service" name="service" required class="form-control">
+                    <option value="">Select Service</option>
+                    {% for service in services %}
+                        <option value="{{ service.id }}">{{ service.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Preferred Date</label>
+                <input type="date" id="date" name="date" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="time">Preferred Time</label>
+                <input type="time" id="time" name="time" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="comments">Additional Comments</label>
+                <textarea id="comments" name="comments" rows="4" class="form-control" placeholder="Any additional information..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Submit Booking</button>
+        </form>
+    </div>
+</div>
                 <section id="services" class="dashboard-section">
                     <h2>Available Services</h2>
                     <div class="services-list">
@@ -153,14 +179,44 @@
                                 <h3>{{ service.title }}</h3>
                                 <p>{{ service.description }} Starting at Ksh {{ service.price }}</p>
                                 <div class="button-group">
-                                    <button class="btn-primary">Pay Prior</button>
-                                    <form action="{% url 'booking:book_service' service.id %}" method="POST">
+                                    {% comment %} <button class="btn-primary" id="openModalBtn">Pay Prior</button> {% endcomment %}
+                                    {% comment %} <form action="{% url 'booking:book_service' service.id %}" method="POST">
                                         {% csrf_token %}
                                         <button type="submit" class="btn-primary book-now-btn">Book Now</button>
-                                    </form>
+                                    </form> {% endcomment %}
                                 </div>
 
                             </div>
+                            <!-- Payment Modal -->
+                            <div id="paymentModal" class="modal">
+                                <div class="modal-content">
+                                    <span id="closeModalBtn" class="close-btn">&times;</span>
+                                    <h2>Make Payment</h2>
+                                    <form method="post" action="{% url 'payments:stk' %}">
+                                        {% csrf_token %}
+                                        <label for="phone">Phone Number :</label>
+                                        <input type="number" id="phone" name="phone" value="254" placeholder="Phone Number">
+                                        <br><br>
+
+                                        <label for="amount">Amount :</label>
+                                        <input type="text" id="amount" name="amount" placeholder="Amount">
+                                        <br><br>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Success Modal -->
+                            <div id="successModal" class="success-modal">
+                                <div class="success-modal-content">
+                                    <span id="closeSuccessModalBtn" class="close-success-btn">&times;</span>
+                                    <div class="success-message">
+                                        <h3>Thank you! Your request has been received successfully.</h3>
+                                        <p>Please check your mobile phone for payment confirmation.</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         {% empty %}
                             <p>No services available at the moment.</p>
                         {% endfor %}
@@ -205,6 +261,7 @@
     <!-- JavaScript for interactive elements -->
     <script src="{% static 'dashboard/js/scripts.js' %}"></script>
     <script src="{% static 'booking/js/scripts.js' %}"></script>
+    <script src="{% static 'dashboard/js/modal.js' %}"></script>
 
 </body>
 </html>

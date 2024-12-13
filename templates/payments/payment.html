@@ -2,6 +2,18 @@
 {% load static %}
 
 {% block body %}
-<h1>Payment form</h1>
-<p>All payments are secure  with us</p>
+<h2>Make a Payment</h2>
+
+<form method="post" action="{% url 'payments:stk' %}">
+  {% csrf_token %}
+    <label for="phone">Phone Number :</label>
+    <input type="number" id="phone" name="phone" value="254" placeholder="Phone Number">
+    <br><br>
+
+    <label for="amount">Amount :</label>
+    <input type="text" id="amount" name="amount" placeholder="Amount">
+    <br><br>
+  <button type="submit">Submit</button>
+</form>
+
 {% endblock %}

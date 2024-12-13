@@ -1,0 +1,118 @@
+/* General Modal Styling */
+.modal, .success-modal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content */
+.modal-content, .success-modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Responsive */
+    max-width: 500px; /* Limit max width */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* Close Button */
+.close-btn, .close-success-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000; /* Make sure it is above other elements */
+}
+
+
+.close-btn:hover, .close-btn:focus, .close-success-btn:hover, .close-success-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Success Modal Styling */
+.success-modal .success-message {
+    text-align: center;
+}
+
+.success-modal h3 {
+    font-size: 24px;
+    color: #4CAF50; /* Green for success */
+    margin-bottom: 10px;
+}
+
+.success-modal p {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Booking Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+form input, form select, form textarea {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+form button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 600px) {
+    .modal-content, .success-modal-content {
+        width: 90%;
+    }
+}
+
+/* Modal Button Styling */
+#new-booking-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#new-booking-btn:hover {
+    background-color: #0056b3;
+}

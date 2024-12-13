@@ -154,8 +154,8 @@
     font-size: 2.5rem;
     font-weight: 600;
     color: #333;
-    position: relative;
-    display: inline-block;
+    /* position: relative;
+    display: inline; */
 }
 
 #mission-vision-values .section-header h2::after {
@@ -253,6 +253,23 @@
     background: #007bff;
     border-radius: 50%;
     border: 3px solid #fff;
+}
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #333;
+    /* position: relative; */
+    /* display: inline-block; */
+    text-align: center;
+}
+.section-header h2::after {
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #fdfeff;
+    margin: 10px auto 0;
+    border-radius: 2px;
+  
 }
 .growth-carousel {
     flex: 1;
@@ -355,6 +372,8 @@
     background: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    width: 300px;
+    height: auto;
 }
 
 #our-team .team-member:hover {
@@ -363,8 +382,8 @@
 }
 
 #our-team .team-member img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     margin-bottom: 15px;
     border: 3px solid #007bff;
@@ -384,6 +403,10 @@
 
 
 /* Impact Section */
+#our-impact{
+    margin-bottom: 30px;
+}
+
 #our-impact .impact-stats {
     display: flex;
     flex-wrap: wrap;
@@ -400,6 +423,9 @@
     flex: 1 1 150px;
     max-width: 200px;
 }
+.section .section-header h2{
+    text-align: center;
+}
 
 #our-impact .stat h3 {
     font-size: 2rem;
@@ -415,19 +441,21 @@
 /* CTA Banner */
 #cta-banner {
     text-align: center;
-    background: #007bff;
+    background: #006cdf;
     padding: 50px 20px;
     color: #fff;
 }
 
 #cta-banner h2 {
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 0;
+    color: #fff;
 }
 
 #cta-banner p {
     font-size: 1.1rem;
     margin-bottom: 30px;
+    color: #fff;
 }
 
 #cta-banner .btn {
@@ -438,6 +466,7 @@
     color: #007bff;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
+    margin: auto;
 }
 
 #cta-banner .btn:hover {

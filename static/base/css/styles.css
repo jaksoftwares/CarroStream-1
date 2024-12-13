@@ -1,115 +1,130 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
 
-  
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
- 
-  
-  /* Header Styling */
-  header.navbar {
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    width: 100%;
-    z-index: 1000;
-  }
-  
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    max-width: 1200px;
-    margin: 0;
-  }
-  
-  /* Logo */
-  .logo a{
-    text-decoration: none;
-  }
-  .logo-text {
-    font-size: 30px;
-    font-weight: 700;
-    color: #007bff;
-    text-decoration: none;
-    letter-spacing: 2px;
-  }
-  
-  /* Navigation Links */
-  .nav-links ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-links a:hover {
-    color: #007bff;
-  }
-  
-  /* Call-to-Action Buttons */
-  .cta-buttons .btn-login,
-  .cta-buttons .btn-signup {
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-  
-  .cta-buttons .btn-login {
-    background-color: #ffffff;
-    color: #007bff;
-    border: 1px solid #007bff;
-  }
-  
-  .cta-buttons .btn-login:hover {
-    background-color: #007bff;
-    color: #ffffff;
-  }
-  
-  .cta-buttons .btn-signup {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-  }
-  
-  .cta-buttons .btn-signup:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Mobile Menu Icon */
-  .menu-icon {
+/* Header Styling */
+header.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Fixes the navbar at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* For scroll effects */
+  opacity: 0; /* Initially hidden */
+  transform: translateY(-100%);
+}
+
+header.navbar.visible {
+  opacity: 1;
+  transform: translateY(0); /* Makes navbar visible */
+}
+
+/* Container Styling */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.logo a {
+  text-decoration: none;
+}
+
+.logo-text {
+  font-size: 36px; /* Increased size */
+  font-weight: 400;
+  color: #0a0d10;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+.nav-links ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-links a {
+  font-size: 18px; /* Increased size */
+  color: #243B55; /* Professional deep navy blue */
+  font-weight: 400; /* Bolder text */
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #007bff; /* Bright blue for hover effect */
+  transform: scale(1.1); /* Slight zoom effect on hover */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Professional hover effect */
+}
+
+/* Call-to-Action Buttons */
+.cta-buttons .btn-login,
+.cta-buttons .btn-signup {
+  text-decoration: none;
+  padding: 12px 25px; /* Slightly larger buttons */
+  border-radius: 20px;
+  font-size: 16px; /* Increased text size */
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.cta-buttons .btn-login {
+  background-color: #ffffff;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.cta-buttons .btn-login:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  transform: scale(1.1); /* Hover effect for buttons */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cta-buttons .btn-signup {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+}
+
+.cta-buttons .btn-signup:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Menu Icon */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-icon span {
+  height: 3px;
+  width: 25px;
+  background-color: #333;
+  margin: 3px 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .nav-links {
     display: none;
-    flex-direction: column;
-    cursor: pointer;
-  }
-  
-  .menu-icon span {
-    height: 3px;
-    width: 25px;
-    background-color: #333;
-    margin: 3px 0;
   }
 
-  
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-    }
-  
-    .menu-icon {
-      display: flex;
-    }
+  .menu-icon {
+    display: flex;
   }
+}
+
   /* Footer Styles */
 footer.footer {
   background-color: #20232a;
@@ -126,7 +141,7 @@ footer .container {
 
 footer h3,
 footer h4 {
-  color: #f9a825;
+  color: #007bff;
   margin-bottom: 15px;
 }
 
@@ -154,7 +169,7 @@ footer ul li a {
 }
 
 footer ul li a:hover {
-  color: #f9a825;
+  color: #007bff;
 }
 
 footer .newsletter-form {
@@ -171,7 +186,7 @@ footer .newsletter-form input {
 }
 
 footer .newsletter-form button {
-  background-color: #f9a825;
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -182,7 +197,7 @@ footer .newsletter-form button {
 }
 
 footer .newsletter-form button:hover {
-  background-color: #ffc107;
+  background-color: #007bff;
 }
 
 footer .social-icons {
@@ -197,7 +212,7 @@ footer .social-icons a {
 }
 
 footer .social-icons a:hover {
-  color: #f9a825;
+  color: #007bff;
 }
 
 /* Responsive Design */
