@@ -10,12 +10,10 @@ from accounts.models import UserProfile
 from accounts.forms import UserProfileForm
 from django.contrib.auth import logout
 from services.models import Service 
-from booking.models import Booking
 from django.contrib.auth import get_user_model
 from accounts.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from accounts.forms import UserProfileForm
-from booking.forms import BookingForm
 from contact.models import ContactMessage
 from .models import Booking
 from django.contrib.auth.decorators import login_required
@@ -55,7 +53,6 @@ def user_dashboard(request):
             return redirect('dashboard:user_dashboard')  # Redirect after submitting booking
     else:
         # Empty forms for profile and booking
-        profile_form = UserProfileForm(instance=profile)
         booking_form = BookingForm()
 
     # Full name for the user (used in the template)
@@ -65,7 +62,6 @@ def user_dashboard(request):
         'user': user,
         'user_profile': profile,
         'profile_form': profile_form,
-        'booking_form': booking_form,
         'services': services,
         'bookings': bookings,
         'full_name': full_name,

@@ -230,10 +230,8 @@
     </table>
 </div>
 
-<!-- Manage Bookings Section -->
 <div id="dynamic-section">
     <h2>Manage Bookings</h2>
-    <button id="add-booking-btn">Add Booking</button>
     <table id="bookings-table">
         <thead>
             <tr>
@@ -250,7 +248,6 @@
                 <td>{{ booking.user }}</td>
                 <td>{{ booking.service }}</td>
                 <td>{{ booking.date }}</td>
-                <td>{{ booking.status }}</td>
                 <td>
                     <button onclick="editBooking({{ booking.id }})">Edit</button>
                     <button onclick="deleteBooking({{ booking.id }})">Delete</button>
