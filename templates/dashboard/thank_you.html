@@ -1,0 +1,38 @@
+<!-- thank_you.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 50px;
+        }
+        .thank-you-message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .home-button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-message">
+        Thank you for your payment!
+    </div>
+    <!-- Using a link with href to go to the dashboard -->
+    <a href="{% url 'dashboard:user_dashboard' %}" class="home-button">Go to Dashboard</a>
+</body> 
+</html>

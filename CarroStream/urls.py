@@ -12,7 +12,7 @@ urlpatterns = [
     path('services/', include('services.urls')),  
     path('accounts/', include('accounts.urls')),  
     path('dashboard/', include('dashboard.urls')),  
-    path('booking/', include('booking.urls')), 
+    # path('booking/', include('booking.urls')), 
     path('payments/', include('payments.urls')),  
     path('rewards/', include('rewards.urls')),  
     path('faq/', include('faq.urls')),  

@@ -374,3 +374,62 @@ function deletePayment(paymentId) {
         alert("Error deleting the payment.");
     });
 }
+
+
+// Updating the booking status
+
+function updateStatus(bookingId) {
+    const newStatus = document.getElementById(`status-${bookingId}`).value;
+
+    fetch(`/update-booking-status/${bookingId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({ status: newStatus }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`Booking status updated to ${newStatus}`);
+        } else {
+            alert('Failed to update booking status. Please try again.');
+        }
+    });
+}
+
+// CSRF Token Helper
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+// Profile section edit functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    const cancelEditBtn = document.getElementById('cancel-edit-btn');
+    const profileDetails = document.getElementById('profile-details');
+    const editProfileForm = document.getElementById('edit-profile-form');
+
+    editProfileBtn.addEventListener('click', () => {
+        profileDetails.style.display = 'none';
+        editProfileForm.style.display = 'block';
+    });
+
+    cancelEditBtn.addEventListener('click', () => {
+        editProfileForm.style.display = 'none';
+        profileDetails.style.display = 'block';
+    });
+});

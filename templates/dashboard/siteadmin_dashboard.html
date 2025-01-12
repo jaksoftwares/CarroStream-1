@@ -89,8 +89,8 @@
                     {% endif %}
                 </td>
                 <td>
-                    <button onclick="editService({{ service.id }})">Edit</button>
-                    <button onclick="deleteService({{ service.id }})">Delete</button>
+                    <button onclick="editService('{{ service.id }}')">Edit</button>
+                    <button onclick="deleteService('{{ service.id }}')">Delete</button>
                 </td>
             </tr>
             {% endfor %}
@@ -118,8 +118,8 @@
                 <td>{{ plan.features }}</td>
                 <td>{{ plan.price }}</td>
                 <td>
-                    <button onclick="editPricing({{ plan.id }})">Edit</button>
-                    <button onclick="deletePricing({{ plan.id }})">Delete</button>
+                    <button onclick="editPricing('{{ plan.id }}')">Edit</button>
+                    <button onclick="deletePricing('{{ plan.id }}')">Delete</button>
                 </td>
             </tr>
             {% endfor %}
@@ -145,8 +145,8 @@
                 <td>{{ member.name }}</td>
                 <td>{{ member.role }}</td>
                 <td>
-                    <button onclick="editTeam({{ member.id }})">Edit</button>
-                    <button onclick="deleteTeam({{ member.id }})">Delete</button>
+                    <button onclick="editTeam('{{ member.id }}')">Edit</button>
+                    <button onclick="deleteTeam('{{ member.id }}')">Delete</button>
                 </td>
             </tr>
             {% endfor %}
@@ -194,8 +194,8 @@
                 <td>{{ testimonial.user }}</td>
                 <td>{{ testimonial.feedback }}</td>
                 <td>
-                    <button onclick="editTestimonial({{ testimonial.id }})">Edit</button>
-                    <button onclick="deleteTestimonial({{ testimonial.id }})">Delete</button>
+                    <button onclick="editTestimonial('{{ testimonial.id }}')">Edit</button>
+                    <button onclick="deleteTestimonial('{{ testimonial.id }}')">Delete</button>
                 </td>
             </tr>
             {% endfor %}
@@ -221,8 +221,8 @@
                 <td>{{ faq.question }}</td>
                 <td>{{ faq.answer }}</td>
                 <td>
-                    <button onclick="editFaq({{ faq.id }})">Edit</button>
-                    <button onclick="deleteFaq({{ faq.id }})">Delete</button>
+                    <button onclick="editFaq('{{ faq.id }}')">Edit</button>
+                    <button onclick="deleteFaq('{{ faq.id }}')">Delete</button>
                 </td>
             </tr>
             {% endfor %}
@@ -230,8 +230,10 @@
     </table>
 </div>
 
+<!-- Manage Bookings Section -->
 <div id="dynamic-section">
     <h2>Manage Bookings</h2>
+    <button id="add-booking-btn">Add Booking</button>
     <table id="bookings-table">
         <thead>
             <tr>
@@ -248,9 +250,10 @@
                 <td>{{ booking.user }}</td>
                 <td>{{ booking.service }}</td>
                 <td>{{ booking.date }}</td>
+                <td>{{ booking.status }}</td>
                 <td>
-                    <button onclick="editBooking({{ booking.id }})">Edit</button>
-                    <button onclick="deleteBooking({{ booking.id }})">Delete</button>
+                    <button onclick="editBooking('{{ booking.id }}')">Edit</button>
+                    <button onclick="deleteBooking('{{ booking.id }}')">Delete</button>
                 </td>
             </tr>
             {% endfor %}
@@ -278,8 +281,8 @@
                 <td>{{ payment.amount }}</td>
                 <td>{{ payment.date }}</td>
                 <td>
-                    <button onclick="viewPayment({{ payment.id }})">View</button>
-                    <button onclick="deletePayment({{ payment.id }})">Delete</button>
+                    <button onclick="viewPayment('{{ payment.id }}')">View</button>
+                    <button onclick="deletePayment('{{ payment.id }}')">Delete</button>
                 </td>
             </tr>
             {% endfor %}

@@ -15,5 +15,7 @@ urlpatterns = [
     path('contact_support/', views.contact_support, name='contact_support'),
     path('logout/', views.logout_view, name='logout'),
     path('dummy/', views.dummy, name='dummy'),
+    path('create/', views.create_booking, name='create_booking'),
+    path('update-booking-status/<int:booking_id>/', views.update_booking_status, name='update_booking_status'),
 ]
 

@@ -1,4 +1,6 @@
 # views.py
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from services.models import Service
@@ -18,42 +20,34 @@ from contact.models import ContactMessage
 from .models import Booking
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-User.objects.all()
+from .forms import  BookingForm
+from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
 def user_dashboard(request):
     user = request.user
     profile = user.profile
+    User.objects.all()
+    
 
     # Fetch all services for the dropdown in the form
     services = Service.objects.all()
+
     # Fetch all bookings for the user, ordered by date
-    bookings = Booking.objects.filter(created_at__lte=timezone.now())
+    bookings = Booking.objects.filter(user=user).order_by('-created_at')
 
     # Handle form submission for updating the user profile
     if request.method == "POST":
         # Profile form handling
         profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
-        if profile_form.is_valid():
+        if 'profile_form' in request.POST and profile_form.is_valid():
             profile_form.save()
+            messages.success(request, "Profile updated successfully!")
             return redirect('dashboard:user_dashboard')  # Redirect after saving profile form
-        # Booking form handling
-        booking_form = BookingForm(request.POST)
-        if booking_form.is_valid():
-            # Get the selected service from the form
-            service_id = request.POST.get('service')
-            service = get_object_or_404(Service, id=service_id)
-            # Create a new booking
-            booking = booking_form.save(commit=False)
-            booking.user = request.user
-            booking.service = service
-            booking.save()
-            messages.success(request, "Your booking has been successfully saved.")
-            return redirect('dashboard:user_dashboard')  # Redirect after submitting booking
+
     else:
-        # Empty forms for profile and booking
-        booking_form = BookingForm()
+        profile_form = UserProfileForm(instance=profile)
 
     # Full name for the user (used in the template)
     full_name = f"{user.first_name} {user.last_name}"
@@ -65,18 +59,43 @@ def user_dashboard(request):
         'services': services,
         'bookings': bookings,
         'full_name': full_name,
+        'User': user,
     }
 
     return render(request, 'dashboard/user_dashboard.html', context)
 
 
+@login_required
+def create_booking(request):
+    user = request.user
+    services = Service.objects.all()
 
+    if request.method == 'POST':
+        # Handle booking creation
+        service_id = request.POST.get('service')
+        date = request.POST.get('date')
+        time = request.POST.get('time')
+        comments = request.POST.get('comments')
 
-def custom_logout(request):
-    logout(request)
-    return redirect('home') 
+        service = get_object_or_404(Service, id=service_id)
 
+        # Create new booking
+        booking = Booking.objects.create(
+            user=user,
+            service=service,
+            date=date,
+            time=time,
+            comments=comments,
+            created_at=timezone.now()
+        )
+        
+        messages.success(request, "Booking successfully made!")
+        return redirect('dashboard:user_dashboard')  # Stay in the dashboard after booking
 
+    context = {
+        'services': services,
+    }
+    return render(request, 'dashboard/user_dashboard.html', context)  # Same dashboard template
 
 
 
@@ -120,6 +139,8 @@ def siteadmin_dashboard(request):
     services = Service.objects.all()  # All services
     users = get_user_model().objects.all()  # All users
     contacts = ContactMessage.objects.all()  # Fetch all contact messages
+    bookings = Booking.objects.all().select_related('user', 'service')
+    bookings = Booking.objects.all()
 
     # Pass the data to the template
     context = {
@@ -130,9 +151,28 @@ def siteadmin_dashboard(request):
         'services': services,
         'users': users,
         'contacts': contacts,  # Add contacts to context
+        'bookings': bookings,
     }
 
     return render(request, 'dashboard/siteadmin_dashboard.html', context)
+
+@csrf_exempt
+def update_booking_status(request, booking_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            new_status = data.get('status')
+            
+            booking = Booking.objects.get(id=booking_id)
+            booking.status = new_status
+            booking.save()
+
+            return JsonResponse({'success': True})
+        except Booking.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Booking not found'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
 
 
 
@@ -187,6 +227,10 @@ def logout_view(request):
     from django.contrib.auth import logout
     logout(request)
     return redirect('login')
+
+def custom_logout(request):
+    logout(request)
+    return redirect('home') 
 
 
 

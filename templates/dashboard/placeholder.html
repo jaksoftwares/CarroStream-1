@@ -1,0 +1,158 @@
+<section id="bookings" class="dashboard-section">
+    <h2>Your Bookings</h2>
+    <div class="bookings-overview">
+        <!-- Dynamically render bookings from the backend -->
+        {% for booking in bookings %}
+        <div class="booking-card" id="booking-{{ booking.id }}">
+            <h3>{{ booking.service.title }}</h3>
+            <p>Status: 
+                <span class="status-{{ booking.status|lower }}">
+                    {{ booking.status|title }}
+                </span>
+            </p>
+            {% comment %} <button class="btn-secondary">View Details</button> {% endcomment %}
+            <div class="button-group">
+                <button class="btn-primary" id="openModalBtn">Pay Prior</button>
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    {% comment %} <button type="submit" class="btn-primary book-now-btn">Book Now</button> {% endcomment %}
+                </form> 
+                <button class="btn-primary" id="openModalBtn">Pay Prior</button>
+            </div>
+            {% comment %} {% if booking.status == 'Pending' %}
+            <!-- Cancel Booking Form -->
+            {% url 'booking:cancel_booking' booking.id %}
+            <form action="" method="POST" style="display:inline;">
+                {% csrf_token %}
+                
+
+            {% endif %} {% endcomment %}
+        </div>
+        {% empty %}
+        <p>No bookings available. Book a service to get started.</p>
+        {% endfor %}
+        <button class="btn-primary book-service-btn">Book New Service</button>
+        <button class="btn-primary" id="openModalBtn">Pay Prior</button>
+    </div>
+    <!-- Booking Form Inside the Dashboard (Modal) -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <!-- Close Button Inside the Modal Content -->
+            <span class="close-btn">&times;</span>
+            <h2>Book a New Service</h2>
+            <form action="{% url 'dashboard:create_booking' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required class="form-control" value="{{ user.full_name }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="service">Service Type</label>
+                    <select id="service" name="service" required class="form-control">
+                        <option value="">Select Service</option>
+                        {% for service in services %}
+                            <option value="{{ service.id }}">{{ service.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Preferred Date</label>
+                    <input type="date" id="date" name="date" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="time">Preferred Time</label>
+                    <input type="time" id="time" name="time" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="comments">Additional Comments</label>
+                    <textarea id="comments" name="comments" rows="4" class="form-control" placeholder="Any additional information..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Submit Booking</button>
+            </form>
+        </div>
+    </div>
+        <section id="services" class="dashboard-section">
+            <h2>Available Services</h2>
+            <div class="services-list">
+                {% for service in services %}
+                    <div class="service-item">
+                        <h3>{{ service.title }}</h3>
+                        <p>{{ service.description }} Starting at Ksh {{ service.price }}</p>
+                        <div class="button-group">
+                            {% comment %} <button class="btn-primary" id="openModalBtn">Pay Prior</button> {% endcomment %}
+                            <!-- {% comment %} <form action="{% url 'booking:book_service' service.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-primary book-now-btn">Book Now</button>
+                            </form> {% endcomment %} -->
+                        </div>
+
+                    </div>
+                    <!-- Payment Modal -->
+                    <div id="paymentModal" class="modal">
+                        <div class="modal-content">
+                            <span id="closeModalBtn" class="close-btn">&times;</span>
+                            <h2>Make Payment</h2>
+                            <form method="post" action="{% url 'payments:stk' %}">
+                                {% csrf_token %}
+                                <label for="phone">Phone Number :</label>
+                                <input type="number" id="phone" name="phone" value="254" placeholder="Phone Number">
+                                <br><br>
+
+                                <label for="amount">Amount :</label>
+                                <input type="text" id="amount" name="amount" placeholder="Amount">
+                                <br><br>
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Success Modal -->
+                    <div id="successModal" class="success-modal">
+                        <div class="success-modal-content">
+                            <span id="closeSuccessModalBtn" class="close-success-btn">&times;</span>
+                            <div class="success-message">
+                                <h3>Thank you! Your request has been received successfully.</h3>
+                                <p>Please check your mobile phone for payment confirmation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                {% empty %}
+                    <p>No services available at the moment.</p>
+                {% endfor %}
+            </div>
+            <section id="payment-history" class="dashboard-section">
+                <h2>Payment History</h2>
+                <div class="payment-history-container">
+                    <!-- Example Entries -->
+                    <div class="payment-item">
+                        <p><strong>Service:</strong> Car Wash</p>
+                        <p><strong>Amount:</strong> Ksh 500</p>
+                        <p><strong>Date:</strong> 2024-12-08</p>
+                        <p><strong>Status:</strong> <span class="status-completed">Completed</span></p>
+                    </div>
+                    <div class="payment-item">
+                        <p><strong>Service:</strong> Oil Change</p>
+                        <p><strong>Amount:</strong> Ksh 1,200</p>
+                        <p><strong>Date:</strong> 2024-12-07</p>
+                        <p><strong>Status:</strong> <span class="status-pending">Pending</span></p>
+                    </div>
+                    <!-- Placeholder for No Payments -->
+                    <div class="no-payments">
+                        <p>No payments made yet.</p>
+                    </div>
+                </div>
+            </section>
+            
+        </section>
+
+        <section id="settings" class="dashboard-section">
+            <h2>Settings</h2>
+            <div class="settings-options">
+                <button class="btn-primary">Change Password</button>
+                <a href="{% url 'dashboard:logout' %}" class="btn-secondary" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
+            </div>
+        </section>
+
+    </div>
+</div>

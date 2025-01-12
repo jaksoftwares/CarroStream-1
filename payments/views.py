@@ -28,13 +28,14 @@ def pay(request):
 
 
 def stk(request):
-    if request.method =="POST":
+    if request.method == "POST":
         phone = request.POST['phone']
         amount = request.POST['amount']
         access_token = MpesaAccessToken.validated_mpesa_access_token
         api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
         headers = {"Authorization": "Bearer %s" % access_token}
-        request = {
+        
+        request_data = {
             "BusinessShortCode": LipanaMpesaPpassword.Business_short_code,
             "Password": LipanaMpesaPpassword.decode_password,
             "Timestamp": LipanaMpesaPpassword.lipa_time,
@@ -47,5 +48,12 @@ def stk(request):
             "AccountReference": "Carrostream Garage",
             "TransactionDesc": "Service Booking"
         }
-        response = requests.post(api_url, json=request, headers=headers)
-        return HttpResponse("Success")
+        
+        response = requests.post(api_url, json=request_data, headers=headers)
+
+        # Check if the payment request was successful
+        if response.status_code == 200:
+            return render(request, 'dashboard/thank_you.html')  # Render the Thank You page
+        else:
+            return HttpResponse("Error processing payment", status=500)
+

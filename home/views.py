@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from services.models import Service
+from .models import Testimonial
 
 def home(request):
-    return render(request, 'home/index.html')
+    testimonials = Testimonial.objects.all()
+    context={
+        'testimonials': testimonials,
+    }
+    return render(request, 'home/index.html', context)
 
 def about(request):
     return render(request, 'about/about.html', {'page_title': 'About Us'})

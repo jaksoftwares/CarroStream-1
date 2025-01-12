@@ -5,6 +5,7 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=255, blank=False, default="Default Full Name")
     email = models.EmailField(unique=True, blank=False)
     profile_picture = models.ImageField(upload_to='accounts/userprofile_pictures/', blank=True, null=True)  # Profile picture is optional
+    
 
     def __str__(self):
         return self.username
